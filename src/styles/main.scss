@@ -56,11 +56,14 @@ h3 {
 h4 {
   font-size: 2rem !important;
   text-transform: uppercase;
-  color: var(--gold);
+  // color: var(--gold);
 }
 
-h5, h6 {
+h5,
+h6 {
   font-size: 1.2rem !important;
+  font-weight: 700;
+  color: var(--gold) !important;
 }
 
 /* Enlaces */
@@ -96,6 +99,9 @@ a {
     border-color: var(--gold-hover) !important;
     color: var(--bg-light-hover) !important;
   }
+}
+.swiper-pagination-bullet-active {
+  background: var(--gold) !important;
 }
 
 .btn-success {

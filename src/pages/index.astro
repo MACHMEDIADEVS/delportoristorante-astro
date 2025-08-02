@@ -9,7 +9,6 @@ import BookYourEvent from "../components/sections/BookYourEvent.astro";
 import Newsletter from "../components/sections/Newsletter.astro";
 
 import homeDescImage from "/public/assets/images/home/del-porto-ristorante.webp";
-
 const videoUrl =
   "https://mustra.machmedianj.com/wp-content/uploads/2025/06/delportoristorante.webm";
 ---
@@ -26,10 +25,10 @@ const videoUrl =
       </video>
       <div class="hero-gradient-overlay"></div>
       <div class="container hero-content">
-        <p class="h4 text-light-subtle">HOMEMADE PASTA AND FRESH SEAFOOD</p>
-        <h1 class="display-1">BENVENUTI ALLA FAMIGLIA</h1>
-        <p class="h5 text-gold">DEL PORTO RISTORANTE</p>
-        <div class="d-flex gap-3">
+        <h1 class="display-1">HOMEMADE PASTA AND FRESH SEAFOOD</h1>
+        <h2 class="fw-bold display-2">BENVENUTI ALLA FAMIGLIA</h2>
+        <p class="text-gold">DEL PORTO RISTORANTE</p>
+        <div class="d-flex gap-1 gap-md-4 mt-4">
           <a href="/contact" class="btn btn-primary btn-lg">RESERVE NOW</a>
           <a
             href="https://order.toasttab.com/online/delportoristorante"
@@ -53,7 +52,7 @@ const videoUrl =
     <section class="py-5 bg-darker">
       <div class="container py-5">
         <div class="row align-items-center">
-          <div class="col-md-6">
+          <div class="col-md-6 p-3">
             <h2>Tradition, Passion and Italian Flavor</h2>
             <p>
               Del Porto Italian Ristorante is a celebration of authentic Italian
@@ -67,13 +66,13 @@ const videoUrl =
               and signature cocktails, every dish is prepared with care,
               passion, and a touch of famiglia.
             </p>
-            <a href="/about-us" class="btn btn-primary mt-3"
+            <a href="/about-us" class="btn btn-primary mt-3 p-2"
               >Learn Our History</a
             >
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 p-3">
             <img
-              src={homeDescImage.src}
+              src="public/assets/images/home/catering.webp"
               alt="Interior of Del Porto Ristorante"
               class="img-fluid border border-gold"
               style="border-width: 2px !important;"
@@ -100,6 +99,14 @@ const videoUrl =
     justify-content: center;
     text-align: left;
     padding-left: 10vw;
+
+    .display-1 {
+      font-size: 1rem !important;
+    }
+    .display-2 {
+      font-size: 2.5rem;
+      color: var(--bg-light) !important;
+    }
 
     video {
       position: absolute;
@@ -134,9 +141,8 @@ const videoUrl =
       max-width: 90dvw;
     }
 
-    .btn-lg {
-      padding: 1rem 2.5rem;
-      font-size: 1.25rem;
+    h1 {
+      font-size: 1rem !important;
     }
 
     @media (max-width: 767.98px) {
@@ -156,5 +162,102 @@ const videoUrl =
   body.light-theme .opening-hours-section,
   .opening-hours-section {
     display: none;
+  }
+
+    /* iphone */
+  @media (max-width: 767.98px) {
+    .display-1 {
+      font-size: 1rem !important;
+      font-weight: 300 !important;
+      letter-spacing: 0.05rem !important;
+      opacity: 0.9 !important;
+    }
+    h2 {
+      font-size: 1.5rem !important;
+    }
+    .display-2 {
+      font-size: 2.5rem !important;
+      color: var(--bg-light) !important;
+    }
+
+    .btn {
+      font-size: 0.9rem !important;
+    }
+
+    .hero-content {
+      margin: 0rem;
+      padding: 0rem;
+      height: 20dvh;
+    }
+
+    /* Header Responsive */
+    header#masthead.site-header {
+      .site-branding .custom-logo {
+        max-height: 2em;
+      }
+      .site-header-toggler {
+        padding: 0.3rem 0.5rem;
+        .site-header-toggler-text {
+          display: none !important;
+        }
+      }
+      .site-header-actions .site-header-action-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.65rem;
+      }
+      .site-header-action-btn-phone-mobile {
+        padding: 0.3rem 0.5rem;
+      }
+    }
+
+    /* Navigation Float Responsive */
+    .navigation-float {
+      bottom: 0dvh;
+      width: 100dvw;
+      border-top: 1px solid var(--border-dark);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+      padding: 0.5rem 0;
+
+      .nav-item .nav-link {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+        .nav-icon {
+          font-size: 1.2rem;
+          margin-bottom: 0.1rem;
+        }
+      }
+    }
+  }
+
+  /* iPad */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    h1 {
+      font-size: 2.2rem !important;
+    }
+    h2 {
+      font-size: 1.8rem !important;
+    }
+    h3 {
+      font-size: 1.5rem !important;
+    }
+
+    /* Header Responsive */
+    header#masthead.site-header {
+      .site-branding .custom-logo {
+        max-height: 2.5em;
+      }
+      .site-header-actions .site-header-action-btn {
+        padding: 0.5rem 0.7rem;
+      }
+    }
+
+    /* Navigation Float Responsive */
+    .navigation-float {
+      bottom: 2dvh;
+      width: 90dvw;
+    }
   }
 </style>

@@ -4,29 +4,33 @@ import { Image } from "astro:assets";
 import cateringImage from "/public/assets/images/home/catering.webp";
 ---
 
-<section id="book-your-event-section" class="bg-dark">
-  <div class="event-grid">
-    <div class="event-content">
+<section id="book-your-event-section" class="book-your-event-hero">
+  <div class="hero-image-overlay"></div>
+  <div class="container hero-content text-left">
+    <div class="col-lg-6 col-md-8">
       <h2 class="text-light">BOOK YOUR EVENT AT DEL PORTO</h2>
-      <p class="text-muted">
+      <p class="text-light text-start">
         Host your special occasions in our elegant Bridge Banquet Room, perfect
         for weddings, celebrations, and more. With all-inclusive packages and
         flexible options, we make event planning seamless and stress-free.
       </p>
-      <div class="booking-features">
-        <div class="feature-item">
+    </div>
+
+    <div>
+      <div class="row">
+        <div class="col-lg-3 text-start">
           <h5>Private & Semi-Private</h5>
           <p>Private & Semi-Private Events starting at 15 guests.</p>
         </div>
-        <div class="feature-item">
+        <div class="col-lg-3 text-start">
           <h5>Custom Menus</h5>
           <p>Customize menus, drinks, and décor to suit your style.</p>
         </div>
-        <div class="feature-item">
+        <div class="col-lg-3 text-start">
           <h5>Service Option</h5>
           <p>Choose from plated, buffet, or family-style serving options.</p>
         </div>
-        <div class="feature-item">
+        <div class="col-lg-3 text-start">
           <h5>3 Step Booking</h5>
           <p>
             Simple 3-step booking process: share details, review options, and
@@ -34,87 +38,107 @@ import cateringImage from "/public/assets/images/home/catering.webp";
           </p>
         </div>
       </div>
-      <a href="/events" class="btn btn-primary mt-4">BOOK YOUR EVENT NOW</a>
-    </div>
-    <div class="event-image">
-      <Image src={cateringImage} alt="Event at Del Porto" />
+      <a href="/events" class="btn btn-primary mt-3">BOOK YOUR EVENT NOW</a>
     </div>
   </div>
 </section>
 
 <style lang="scss">
-  #book-your-event-section {
-    padding: 5rem 0;
+  .book-your-event-hero {
+    position: relative;
+    height: 60dvh;
+    min-height: 400px;
+    background-image: url("/public/assets/images/home/catering.webp");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    color: var(--txt-light);
+    padding: 0;
 
-    .event-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      max-width: 1320px;
-      margin: 0 auto;
+    .hero-image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,1) 5%,
+        rgba(0, 0, 0, 0.4) 90%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      z-index: 1;
+    }
 
-      .event-content {
-        padding: 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-left: 10vw;
+      .booking-features {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
 
-        h2 {
-          font-size: 3rem;
-          font-weight: bold;
-          text-transform: uppercase;
-        }
-
-        p {
-          font-size: 1.25rem;
-        }
-
-        .booking-features {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1rem;
-          margin: 2rem 0;
-
-          .feature-item {
-            text-align: center;
-            h5 {
-              font-size: 1rem;
-              color: var(--gold);
-            }
+        .feature-item {
+          h5 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: bold;
+          }
+          p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
           }
         }
       }
 
-      .event-image {
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
+      .btn {
+        font-weight: bold;
+        padding: 0.8rem 2rem;
       }
     }
   }
 
   @media (min-width: 992px) {
-    #book-your-event-section {
-      .event-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-
-        .event-content {
-          text-align: left;
-          .booking-features {
-            grid-template-columns: 1fr 1fr;
-            text-align: left;
-            .feature-item {
-              h5 {
-                color: var(--txt-light);
-              }
-            }
-          }
+    .book-your-event-hero {
+      .hero-content {
+        .booking-features {
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem 2rem;
         }
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .book-your-event-hero {
+      height: 50dvh;
+      .hero-content {
+        padding-left: 5vw;
+        text-align: center;
+
+        .col-lg-6,
+        .col-md-8 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+
+        h2 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+      .hero-image-overlay {
+        background: rgba(0, 0, 0, 0.7);
       }
     }
   }

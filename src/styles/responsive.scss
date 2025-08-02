@@ -1,15 +1,18 @@
 /* src/styles/responsive.scss */
 
-/* Estilos para pantallas pequeñas (móviles) */
+/* iPhone */
 @media (max-width: 767.98px) {
   h1 {
     font-size: 2rem !important;
   }
   h2 {
-    font-size: 1.5rem !important;
+    font-size: 2rem !important;
+    text-transform: uppercase;
   }
   h3 {
-    font-size: 1.2rem !important;
+    font-size: 2.2rem !important;
+    text-transform: uppercase;
+
   }
   h4 {
     font-size: 1.25rem !important;
@@ -17,11 +20,17 @@
 
   h5,
   h6 {
-    font-size: 1.25rem !important;
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
   }
 
   .btn {
     font-size: 0.9rem !important;
+  }
+  .btn-lg {
+    padding: 0.5rem 1.5rem;
+    font-size: 1.25rem;
+    width: 100% !important;
   }
 
   /* Header Responsive */
@@ -66,7 +75,7 @@
   }
 }
 
-/* Estilos para iPads y tablets */
+/* iPads */
 @media (min-width: 768px) and (max-width: 1024px) {
   h1 {
     font-size: 2.2rem !important;
