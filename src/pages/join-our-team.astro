@@ -1,0 +1,225 @@
+---
+/* src/pages/join-our-team.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/sections/HeroPage.astro';
+import Newsletter from '../components/sections/Newsletter.astro';
+
+// Información para el Hero y SEO
+const pageTitle = "Join Our Team";
+const pageSubtitle = "Become a Part of the Del Porto Family";
+const seoDescription = "Explore career opportunities at Del Porto Ristorante. Join our passionate team and grow with us in a dynamic and rewarding environment.";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica para equipo
+const heroAltText = "Restaurant staff working together in a kitchen";
+
+// Información de contacto para empleos
+const careersEmail = "careers@delportorestaurant.com";
+
+// Beneficios de unirse al equipo
+const whyJoinUs = [
+  "Competitive Compensation",
+  "Opportunities for Growth & Development",
+  "Positive & Supportive Work Environment",
+  "Learn from Experienced Culinary Professionals",
+  "Employee Discounts & Benefits",
+  "Be Part of a Beloved Local Institution",
+];
+---
+
+<BaseLayout title="Join Our Team" description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="join-our-team-page-content bg-darker">
+    <section class="py-5">
+      <div class="container">
+        <div class="row gx-lg-5 justify-content-center">
+          <div class="col-lg-8">
+            <h2 class="text-gold mb-4 text-center">Apply Today</h2>
+            <form class="application-form bg-dark p-4 p-md-5 border border-darker rounded-0">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label text-light">Full Name</label>
+                  <input type="text" class="form-control rounded-0" id="fullName" placeholder="Your Full Name" required>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                  <label for="emailAddress" class="form-label text-light">Email Address</label>
+                  <input type="email" class="form-control rounded-0" id="emailAddress" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label text-light">Phone Number</label>
+                  <input type="tel" class="form-control rounded-0" id="phoneNumber" placeholder="Your Phone Number">
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                  <label for="desiredPosition" class="form-label text-light">Desired Position</label>
+                  <input type="text" class="form-control rounded-0" id="desiredPosition" placeholder="e.g., Chef, Server, Host">
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="coverLetter" class="form-label text-light">Message / Cover Letter</label>
+                <textarea class="form-control rounded-0" id="coverLetter" rows="5" placeholder="Tell us about your experience and why you want to join Del Porto."></textarea>
+              </div>
+              <div class="mb-4">
+                <label for="resumeUpload" class="form-label text-light">Upload Resume (Optional)</label>
+                <input type="file" class="form-control rounded-0" id="resumeUpload">
+                <small class="form-text text-muted">Max file size 5MB (PDF, DOCX)</small>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-0 mt-3">SUBMIT APPLICATION</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Why Join Our Team?</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 text-light text-center">
+          {whyJoinUs.map((benefit) => (
+            <div class="col">
+              <div class="p-4 bg-dark-secondary h-100 border border-darker">
+                <i class="bi bi-star-fill fs-3 text-gold mb-3"></i>
+                <p class="mb-0">{benefit}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker text-center">
+      <div class="container">
+        <h2 class="text-gold mb-4">Questions About Careers?</h2>
+        <p class="lead text-light mb-4">
+          If you have any questions regarding career opportunities at Del Porto Ristorante, please feel free to reach out to us directly.
+        </p>
+        <p class="lead text-light mb-0">
+          Email us at: <a href={`mailto:${careersEmail}`} class="text-gold">{careersEmail}</a>
+        </p>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .join-our-team-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+    .lead {
+      font-size: 1.25rem;
+    }
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    .application-form {
+      background-color: var(--bg-dark);
+      border-color: var(--border-darker) !important;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+      label {
+        color: var(--txt-light);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .form-control,
+      .form-select {
+        background-color: var(--bg-dark-secondary);
+        border: 1px solid var(--border-dark);
+        color: var(--txt-light);
+        padding: 0.75rem 1rem;
+        border-radius: 0px !important;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:focus {
+          background-color: var(--bg-dark-secondary);
+          border-color: var(--gold);
+          box-shadow: 0 0 0 0.25rem rgba(var(--gold), 0.25);
+          color: var(--txt-light);
+          outline: none;
+        }
+
+        &::placeholder {
+          color: var(--txt-muted);
+        }
+      }
+
+      .form-text {
+        color: var(--txt-muted) !important;
+      }
+
+      .btn-lg {
+        padding: 1rem 2.5rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+    }
+
+    .bg-dark-secondary {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      i {
+        transition: color 0.3s ease;
+      }
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        i {
+          color: var(--gold-hover);
+        }
+      }
+      border-color: var(--border-darker) !important;
+    }
+
+    body.light-theme & {
+      .bg-dark, .bg-darker {
+        background-color: var(--bg-dark);
+      }
+      .application-form {
+        background-color: var(--bg-dark);
+        border-color: var(--border-dark) !important;
+        label {
+          color: var(--txt-light);
+        }
+        .form-control, .form-select {
+          background-color: var(--bg-dark-secondary);
+          border-color: var(--border-dark);
+          color: var(--txt-light);
+          &:focus {
+            background-color: var(--bg-dark-secondary);
+            border-color: var(--gold);
+            color: var(--txt-light);
+          }
+        }
+        .form-text {
+          color: var(--txt-muted) !important;
+        }
+      }
+      .bg-dark-secondary {
+        background-color: var(--bg-dark-secondary);
+        border-color: var(--border-dark) !important;
+      }
+      .lead, p, .text-muted {
+        color: var(--txt-light);
+      }
+      a.text-gold {
+        color: var(--gold) !important;
+        &:hover {
+          color: var(--gold-hover) !important;
+        }
+      }
+    }
+  }
+</style>

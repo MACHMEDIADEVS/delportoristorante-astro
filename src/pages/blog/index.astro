@@ -1,0 +1,94 @@
+---
+/* src/pages/blog/index.astro */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+// import CardPost from '../../components/ui/CardPost.astro'; // Lo crearemos después
+import Newsletter from '../../components/sections/Newsletter.astro';
+import { fakePosts } from '../../utils/fakeData'; // Importa los posts falsos
+
+const pageTitle = "Our Blog";
+const pageSubtitle = "News, Recipes & Culinary Insights";
+const seoDescription = "Stay updated with the latest news, authentic Italian recipes, and culinary insights from Del Porto Ristorante. Read our blog!";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = "Food preparation in a kitchen, symbolizing blog content";
+
+const posts = fakePosts;
+---
+
+<BaseLayout title={pageTitle} description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="blog-index-page-content bg-darker">
+    <section class="py-5">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Latest Articles</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {posts.map(post => (
+            <div class="col">
+              {/* Placeholder para CardPost - luego lo reemplazaremos con el componente real */}
+              <a href={`/blog/${post.slug}`} class="card h-100 bg-dark rounded-0 text-decoration-none text-light border border-darker">
+                <img src={post.imageUrl} class="card-img-top rounded-0" alt={post.title} style="height: 200px; object-fit: cover; filter: brightness(0.8);" />
+                <div class="card-body">
+                  <h5 class="card-title text-gold">{post.title}</h5>
+                  <p class="card-text small text-muted">{post.excerpt}</p>
+                  <p class="card-text"><small class="text-muted">Published: {post.date}</small></p>
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+        {/* Botón para cargar más posts si se desea */}
+        <div class="text-center mt-5">
+            <button class="btn btn-outline-light btn-lg rounded-0">Load More Posts</button>
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .blog-index-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+    .card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      .btn-lg {
+        padding: 1rem 2.5rem;
+        font-size: 1.25rem;
+      }
+    }
+
+    body.light-theme & {
+      background-color: var(--bg-dark);
+      h2.text-gold {
+        color: var(--gold);
+      }
+      .card {
+        background-color: var(--bg-dark-secondary) !important;
+        border-color: var(--border-dark) !important;
+        .card-title {
+          color: var(--gold);
+        }
+        .card-text {
+          color: var(--txt-muted) !important;
+        }
+      }
+    }
+  }
+</style>

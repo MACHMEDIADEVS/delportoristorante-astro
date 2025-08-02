@@ -1,0 +1,154 @@
+---
+/* src/pages/cookie-policy.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+// import HeroPage from '../components/sections/HeroPage.astro'; // Eliminar esta línea o comentarla
+
+// Información para el Hero y SEO (se mantendrá solo para metadatos de la página)
+const pageTitle = "Cookies Policy";
+const seoDescription = "Learn about how Del Porto Ristorante uses cookies and similar technologies on its website to enhance your Browse experience.";
+// const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Eliminar o comentar
+// const heroAltText = "Abstract background with digital patterns, symbolizing data"; // Eliminar o comentar
+
+// Fecha de última actualización (según info.md)
+const lastUpdated = "May 13, 2025";
+
+// Contenido inventado para la Política de Cookies
+const cookieContent = [
+  {
+    title: "1. What Are Cookies?",
+    paragraphs: [
+      "Cookies are small text files stored on your device (computer, phone, tablet) when you visit a website. They help websites recognize your browser and remember your preferences over time."
+    ]
+  },
+  {
+    title: "2. Types of Cookies We Use",
+    paragraphs: [
+      "<strong>Essential Cookies:</strong> Required for the website to function properly (e.g., reservations, checkout).",
+      "<strong>Performance & Analytics Cookies:</strong> Help us understand how visitors interact with our site (e.g., Google Analytics).",
+      "<strong>Functionality Cookies:</strong> Remember choices you’ve made (e.g., language preferences).",
+      "<strong>Marketing Cookies:</strong> Help us deliver relevant ads or event promotions via third-party platforms."
+    ]
+  },
+  {
+    title: "3. How We Use Cookies",
+    paragraphs: [
+      "We use cookies to:",
+      "Enable secure reservations and gift card purchases",
+      "Improve website performance and navigation",
+      "Understand traffic sources and user behavior",
+      "Promote special events and offers"
+    ]
+  },
+  {
+    title: "4. Managing Your Cookie Preferences",
+    paragraphs: [
+      "You can control or delete cookies anytime through your browser settings:",
+      "Block all cookies",
+      "Delete existing cookies",
+      "Set alerts for new cookies",
+      "Note: Disabling cookies may affect website functionality."
+    ]
+  },
+  {
+    title: "5. Third-Party Cookies",
+    paragraphs: [
+      "We may allow third-party services (e.g., ToastTab, Google, Meta) to set cookies through our website for analytics, payment processing, and advertising purposes. These services follow their own privacy and cookie policies."
+    ]
+  },
+  {
+    title: "6. Contact Us",
+    paragraphs: [
+      "Have questions about our use of cookies?",
+      "Email: delportorestaurant@gmail.com",
+      "Address: 91 Elizabeth Ave, Elizabeth, NJ 07206",
+      "Phone: (908) 409-8424"
+    ]
+  }
+];
+---
+
+<BaseLayout title="Cookie Policy" description={seoDescription}>
+  <main class="policy-page-content bg-darker text-light pt-5"> {/* Añadido pt-5 para espacio superior */}
+    <section class="py-5">
+      <div class="container">
+        <h1 class="text-gold text-center mb-4">{pageTitle}</h1> {/* Cambiado a h1 */}
+        <p class="text-muted text-center mb-5">Last Updated: {lastUpdated}</p>
+
+        {cookieContent.map(section => (
+          <div class="policy-section mb-5">
+            <h3 class="h4 text-light mb-3">{section.title}</h3>
+            {section.paragraphs.map(p => (
+              <p class="text-light" set:html={p}></p>
+            ))}
+          </div>
+        ))}
+
+        <div class="d-flex justify-content-center gap-3 mt-5">
+          <a href="/privacy-policy" class="btn btn-outline-light btn-lg rounded-0">Privacy Policy</a>
+          <a href="/terms-and-conditions" class="btn btn-outline-light btn-lg rounded-0">Terms and Conditions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .policy-page-content {
+    /* La altura del header es de unos 75px, así que el padding-top del main/section debe compensar */
+    padding-top: 75px; /* Asegura que el contenido no quede debajo del header fijo */
+
+    h1.text-gold { /* Estilo para el nuevo h1 */
+      font-size: 3rem !important;
+      @media (max-width: 767.98px) {
+        font-size: 2.2rem !important;
+      }
+    }
+    h3.h4 {
+      font-size: 1.8rem !important;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem !important;
+    }
+    p.text-muted {
+      font-size: 1rem;
+    }
+    p.text-light {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+
+      strong {
+        color: var(--gold);
+      }
+    }
+
+    .policy-section {
+      &:last-of-type {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .btn-lg {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  body.light-theme .policy-page-content {
+    background-color: var(--bg-darker);
+    h1.text-gold {
+      color: var(--gold);
+    }
+    h3.h4 {
+      color: var(--gold);
+      border-bottom-color: var(--border-dark);
+    }
+    p.text-muted, p.text-light {
+      color: var(--txt-light);
+    }
+    strong {
+      color: var(--gold);
+    }
+  }
+</style>

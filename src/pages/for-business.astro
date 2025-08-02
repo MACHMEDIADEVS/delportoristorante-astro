@@ -1,0 +1,245 @@
+---
+/* src/pages/for-business.astro */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroPage from "../components/sections/HeroPage.astro";
+import Newsletter from "../components/sections/Newsletter.astro";
+
+// Información de la página For Business desde info.md
+const pageTitle = "Business Dining & Corporate Catering";
+const pageSubtitle = "Elevate Your Next Meeting with Italian Excellence";
+const seoDescription =
+  "Del Porto Ristorante offers professional corporate catering and private dining for business meetings and events. Experience authentic Italian cuisine with seamless service.";
+const heroImageUrl =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = "Elegant corporate dining setup with Italian food";
+
+const introText =
+  "Professional. Reliable. Delicious. Whether you're hosting a team lunch, client meeting, office celebration, or full-scale corporate event—Del Porto brings elevated Italian cuisine and seamless service to your business table.";
+
+const corporateCateringFeatures = [
+  "Lunch & Dinner Packages",
+  "Individual or Buffet-Style Options",
+  "Vegetarian & Gluten-Free Menus",
+  "On-Time Delivery & Setup",
+  "Free Delivery for Large Orders",
+];
+const corporateMenuPdfLink = "/assets/pdf/corporate-menu.pdf"; // Enlace a un PDF de ejemplo
+const cateringPhoneNumber = "(908) 409-8424";
+const cateringEmail = "delportorestaurant@gmail.com";
+
+const businessEventOptions = [
+  "Presentation-Friendly Layouts",
+  "Professional Staff & Bartenders",
+  "Custom Menus & Open Bar Options",
+  "Wi-Fi and Audio System Available",
+  "Early Weekday & Lunch Hour Availability",
+];
+const businessVenueContextImage =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de contexto
+const businessVenueContextAltText =
+  "Elegant restaurant interior set for a private business event";
+
+const whyChooseUsPoints = [
+  "Consistent Quality & Timely Service",
+  "Personalized Menus for Any Group Size",
+  "Professional Appearance & Communication",
+  "Local Business Partner in Elizabeth, NJ",
+];
+
+const finalCallToAction =
+  "Whether it’s a quarterly review, team celebration, or VIP client lunch—Del Porto delivers a reliable, elegant, and delicious experience your colleagues will appreciate.";
+---
+
+<BaseLayout title="For Business" description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="for-business-page-content">
+    <section class="py-5 bg-dark">
+      <div class="container text-center">
+        <p class="lead text-light mb-4">{introText}</p>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">
+          Corporate Catering at Your Office
+        </h2>
+        <div class="row align-items-center">
+          <div class="col-md-7 mb-4 mb-md-0">
+            <ul class="list-unstyled text-light fs-5">
+              {
+                corporateCateringFeatures.map((feature) => (
+                  <li class="mb-3">
+                    <i class="bi bi-check-circle-fill text-gold me-2" />{" "}
+                    {feature}
+                  </li>
+                ))
+              }
+            </ul>
+            <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+              <a
+                href={corporateMenuPdfLink}
+                download
+                class="btn btn-primary btn-lg">Download Corporate Menu PDF</a
+              >
+              <a
+                href={`tel:${cateringPhoneNumber.replace(/\s+/g, "")}`}
+                class="btn btn-outline-light btn-lg"
+                >Call to Order: {cateringPhoneNumber}</a
+              >
+            </div>
+            <p class="text-muted mt-3">
+              Email: <a href={`mailto:${cateringEmail}`} class="text-muted"
+                >{cateringEmail}</a>
+            </p>
+          </div>
+          <div class="col-md-5">
+            <img
+              src={businessVenueContextImage}
+              alt={businessVenueContextAltText}
+              class="img-fluid rounded-0 border border-gold"
+              style="border-width: 2px !important;"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">
+          Host Your Business Event at Del Porto
+        </h2>
+        <p class="lead text-light text-center mb-4">
+          Looking for a polished space to impress clients or gather your team?
+        </p>
+        <div class="row row-cols-1 row-cols-md-2 g-4 text-light">
+          {
+            businessEventOptions.map((option) => (
+              <div class="col">
+                <div class="p-4 bg-dark-secondary h-100 border border-darker">
+                  <i class="bi bi-building fs-4 text-gold me-3 mb-2" />
+                  <p class="d-inline-block mb-0">{option}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">
+          Why Choose Del Porto for Your Business?
+        </h2>
+        <div
+          class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 text-light text-center"
+        >
+          {
+            whyChooseUsPoints.map((point) => (
+              <div class="col">
+                <div class="p-4 bg-dark-secondary h-100 border border-darker">
+                  <i class="bi bi-award-fill fs-3 text-gold mb-3" />
+                  <p class="mb-0">{point}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark text-center">
+      <div class="container">
+        <h2 class="text-gold mb-4">Plan Your Next Business Meal Today</h2>
+        <p class="lead text-light mb-4">{finalCallToAction}</p>
+        <a href="/contact" class="btn btn-primary btn-lg mt-3"
+          >Contact Us to Get a Quote</a
+        >
+        <p class="text-muted mt-4">{cateringEmail} | {cateringPhoneNumber}</p>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .for-business-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+    .lead {
+      font-size: 1.25rem;
+    }
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+    .fs-5 {
+      font-size: 1.15rem !important;
+    }
+
+    .list-unstyled li {
+      display: flex;
+      align-items: flex-start;
+      i {
+        flex-shrink: 0; /* Evita que el icono se comprima */
+        margin-top: 0.2rem; /* Alineación vertical con el texto */
+      }
+    }
+
+    .bg-dark-secondary {
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      i {
+        transition: color 0.3s ease;
+      }
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        i {
+          color: var(--gold-hover);
+        }
+      }
+      border-color: var(
+        --border-darker
+      ) !important; /* Asegura el borde oscuro */
+    }
+
+    img.img-fluid {
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    body.light-theme & {
+      .bg-dark,
+      .bg-darker {
+        background-color: var(--bg-dark);
+      }
+      .bg-dark-secondary {
+        background-color: var(--bg-dark-secondary);
+        border-color: var(--border-dark) !important;
+      }
+      .lead,
+      p,
+      .list-unstyled li,
+      .text-muted {
+        color: var(--txt-light);
+      }
+      a.text-muted {
+        color: var(--txt-muted) !important;
+        &:hover {
+          color: var(--gold) !important;
+        }
+      }
+    }
+  }
+</style>

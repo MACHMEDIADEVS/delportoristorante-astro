@@ -1,0 +1,139 @@
+---
+/* src/components/sections/CateringSection.astro */
+import { Image } from "astro:assets";
+import cateringImage from "/public/assets/images/home/events-pic.webp";
+---
+
+<section id="catering-section" class="bg-dark">
+  <div class="catering-grid">
+    <div class="catering-content">
+      <h2 class="text-light">CORPORATE CATERING AT YOUR LOCATION</h2>
+      <p class="text-muted">
+        Food & Drinks — We Bring the Experience to You!<br />
+        Annual Contracts — Custom Menus — Unmatched Quality
+      </p>
+      <div class="catering-list row">
+        <div class="col-12 col-md-6 mb-3">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12 6C9.79 6 8 7.79 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7.79 14.21 6 12 6ZM12 12C10.9 12 10 11.1 10 10C10 8.9 10.9 8 12 8C13.1 8 14 8.9 14 10C14 11.1 13.1 12 12 12ZM12 16.5C9.67 16.5 7.56 17.65 6 19.46C6 17.39 8.01 15.75 12 15.75C15.99 15.75 18 17.39 18 19.46C16.44 17.65 14.33 16.5 12 16.5Z"
+              fill="var(--gold)"></path>
+          </svg>
+          <span>Elevated Service Standards</span>
+        </div>
+        <div class="col-12 col-md-6 mb-3">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12 6C9.79 6 8 7.79 8 10C8 12.21 9.79 14 12 14C14.21 14 16 12.21 16 10C16 7.79 14.21 6 12 6ZM12 12C10.9 12 10 11.1 10 10C10 8.9 10.9 8 12 8C13.1 8 14 8.9 14 10C14 11.1 13.1 12 12 12ZM12 16.5C9.67 16.5 7.56 17.65 6 19.46C6 17.39 8.01 15.75 12 15.75C15.99 15.75 18 17.39 18 19.46C16.44 17.65 14.33 16.5 12 16.5Z"
+              fill="var(--gold)"></path>
+          </svg>
+          <span>Professional Servers & Bartenders</span>
+        </div>
+      </div>
+      <p>
+        Buon cibo. Buona compagnia. Bellissimo evento.<br />
+        (Good food. Good company. A beautiful event.)
+      </p>
+      <a href="/catering" class="btn btn-outline-light mt-4">INQUIRY NOW</a>
+    </div>
+    <div class="catering-image">
+      <Image src={cateringImage} alt="Catering services" />
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #catering-section {
+    padding: 5rem 0;
+
+    .catering-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1320px;
+      margin: 0 auto;
+
+      .catering-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+
+        h2 {
+          font-size: 3rem;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        p {
+          font-size: 1.25rem;
+        }
+
+        .catering-list {
+          list-style: none;
+          padding-left: 0;
+          margin: 2rem auto;
+
+          .col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              margin-right: 0.75rem;
+              min-width: 24px;
+              min-height: 24px;
+            }
+
+            span {
+              font-size: 1.1rem;
+              color: var(--txt-light);
+            }
+          }
+        }
+      }
+
+      .catering-image {
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    #catering-section {
+      .catering-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+
+        .catering-content {
+          text-align: left;
+
+          .catering-list {
+            margin-left: 0;
+            .col {
+              justify-content: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

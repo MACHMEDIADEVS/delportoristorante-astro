@@ -1,0 +1,150 @@
+---
+/* src/components/sections/GoogleReviewsCarousel.astro */
+import { Swiper } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+import { fakeReviews } from '../../utils/fakeData'; // Importa los datos falsos
+import ReviewCard from '../ui/ReviewCard.astro'; // Importa el componente de tarjeta de reseña
+
+const reviews = fakeReviews;
+---
+
+<section class="google-reviews-carousel-section py-5 bg-darker">
+  <div class="container py-5">
+    <h2 class="text-center text-light mb-5">What Our Customers Say</h2>
+    <div class="swiper reviews-swiper">
+      <div class="swiper-wrapper">
+        {reviews.map((review) => (
+          <div class="swiper-slide">
+            <ReviewCard review={review} />
+          </div>
+        ))}
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+  // Instalar módulos de Swiper
+  Swiper.use([Navigation, Pagination, Autoplay]);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.reviews-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          slidesPerGroup: 1, // Avanza de uno en uno
+        },
+        992: {
+          slidesPerView: 3,
+          slidesPerGroup: 1, // Avanza de uno en uno
+        },
+      },
+    });
+  });
+</script>
+
+<style lang="scss">
+  .google-reviews-carousel-section {
+    .swiper {
+      padding-bottom: 3rem; /* Espacio para la paginación */
+    }
+
+    .swiper-slide {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: stretch; /* Asegura que todas las tarjetas tengan la misma altura */
+    }
+
+    /* Estilos para los botones de navegación de Swiper */
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--gold) !important;
+      top: 50%; /* Ajusta la posición vertical */
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+      border-radius: 0;
+      opacity: 0.8;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+
+      &::after {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.7);
+      }
+
+      /* Ajuste para mobile para que no se vean */
+      @media (max-width: 767.98px) {
+        display: none;
+      }
+    }
+
+    .swiper-button-prev {
+      left: 0;
+    }
+    .swiper-button-next {
+      right: 0;
+    }
+
+    /* Estilos para la paginación (los puntos) */
+    .swiper-pagination-bullet {
+      background-color: var(--txt-muted);
+      opacity: 0.8;
+      transition: background-color 0.3s ease;
+
+      &-active {
+        background-color: var(--gold) !important;
+        opacity: 1;
+      }
+    }
+  }
+
+  body.light-theme .google-reviews-carousel-section {
+    background-color: var(--bg-dark); /* En tema claro, este es el fondo claro */
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--gold) !important;
+      background-color: rgba(255, 255, 255, 0.5); /* Fondo semitransparente claro */
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+    }
+    .swiper-pagination-bullet {
+      background-color: var(--txt-muted);
+      &-active {
+        background-color: var(--gold) !important;
+      }
+    }
+  }
+</style>

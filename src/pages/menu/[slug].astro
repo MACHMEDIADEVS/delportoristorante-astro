@@ -1,0 +1,146 @@
+---
+/* src/pages/menu/[slug].astro */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fakeMenus } from '../../utils/fakeData'; // Importa los datos falsos
+
+// `getStaticPaths` es necesario para generar páginas estáticas para cada menú
+export async function getStaticPaths() {
+  return fakeMenus.map(menu => ({
+    params: { slug: menu.slug },
+    props: { menu },
+  }));
+}
+
+const { menu } = Astro.props; // Accede a las props pasadas por getStaticPaths
+const defaultHeroImage = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero por defecto
+
+// Usamos la imagen de la tarjeta del menú como imagen de hero si está disponible
+const heroImage = menu.image_card || defaultHeroImage;
+---
+
+<BaseLayout title={menu.title} description={`Explore the ${menu.title} at Del Porto Ristorante.`}>
+  <main>
+    <section class="menu-hero-section position-relative d-flex align-items-center justify-content-center text-white text-center" style={`background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${heroImage}');`}>
+      <div class="container position-relative z-1">
+        <h1 class="display-3 fw-bold mb-3 text-white">{menu.title}</h1>
+        <p class="lead text-gold">{menu.subtitle}</p>
+        {menu.link_order_online && (
+          <a href={menu.link_order_online} target="_blank" class="btn btn-primary mt-4">Order Online</a>
+        )}
+      </div>
+    </section>
+
+    <section class="menu-content-section py-5 bg-darker">
+      <div class="container">
+        {menu.category.map(category => (
+          <div class="menu-category mb-5">
+            <h2 class="text-gold text-center mb-4">{category.title_category}</h2>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+              {category.list.map(plate => (
+                <div class="col">
+                  <div class="menu-item p-3 border border-dark rounded-0 bg-dark-secondary">
+                    <div class="d-flex justify-content-between align-items-baseline mb-1">
+                      <h3 class="h5 text-light mb-0">{plate.name_plate}</h3>
+                      {plate.single_price ? (
+                        <span class="text-gold fw-bold">${plate.price?.toFixed(2)}</span>
+                      ) : (
+                        <span class="text-gold fw-bold">{plate.dual_price}</span>
+                      )}
+                    </div>
+                    <p class="text-muted small mb-0">{plate.description_name}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .menu-hero-section {
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 0; /* Asegura que el hero esté detrás del header sticky */
+    margin-top: -75px; /* Compensa la altura del header si es fija y oculta parte del hero */
+    padding-top: 75px; /* Asegura que el contenido no quede bajo el header */
+
+    /* Animación de entrada para el hero */
+    animation: fadeIn 1s ease-out;
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 4rem !important;
+      @media (max-width: 767.98px) {
+        font-size: 2.8rem !important;
+      }
+    }
+  }
+
+  .menu-content-section {
+    .menu-category {
+      h2 {
+        font-size: 2.5rem !important;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 0.5rem;
+        display: inline-block; /* Para que el borde sea solo del ancho del texto */
+      }
+
+      .menu-item {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        h3 {
+          font-weight: bold;
+          color: var(--txt-light);
+        }
+        span {
+          font-weight: bold;
+          color: var(--gold);
+        }
+        p {
+          font-size: 0.85rem;
+          color: var(--txt-muted);
+        }
+      }
+    }
+  }
+
+  body.light-theme .menu-content-section {
+    .menu-category {
+      h2 {
+        border-bottom-color: var(--gold);
+      }
+      .menu-item {
+        background-color: var(--bg-dark-secondary); /* En tema claro, es más claro */
+        border-color: var(--border-dark); /* En tema claro, es más claro */
+        h3 {
+          color: var(--txt-light); /* En tema claro, es oscuro */
+        }
+        p {
+          color: var(--txt-muted); /* En tema claro, es más oscuro */
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

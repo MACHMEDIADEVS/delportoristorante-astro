@@ -1,0 +1,83 @@
+---
+/* src/components/base/ThemeToggle.astro */
+---
+
+<button
+  id="theme-toggle"
+  class="btn btn-outline-light d-flex align-items-center justify-content-center"
+>
+  <i class="bi bi-sun-fill me-2 d-none light-icon"></i>
+  <i class="bi bi-moon-fill me-2 d-none dark-icon"></i>
+  {/* Opcional, si quieres mantener el texto en desktop */}
+</button>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleButton = document.getElementById("theme-toggle");
+    const body = document.body;
+    const lightIcon = toggleButton.querySelector(".light-icon");
+    const darkIcon = toggleButton.querySelector(".dark-icon");
+
+    // Función para actualizar el icono
+    function updateIcon(isLightTheme) {
+      if (isLightTheme) {
+        lightIcon.classList.add("d-none");
+        darkIcon.classList.remove("d-none");
+      } else {
+        lightIcon.classList.remove("d-none");
+        darkIcon.classList.add("d-none");
+      }
+    }
+
+    // Inicializar tema desde localStorage
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light-theme") {
+      body.classList.add("light-theme");
+      updateIcon(true);
+    } else {
+      // Default to dark theme or if no theme is saved
+      body.classList.remove("light-theme");
+      updateIcon(false);
+    }
+
+    toggleButton.addEventListener("click", () => {
+      body.classList.toggle("light-theme");
+      const isLightTheme = body.classList.contains("light-theme");
+      localStorage.setItem(
+        "theme",
+        isLightTheme ? "light-theme" : "dark-theme"
+      );
+      updateIcon(isLightTheme);
+    });
+  });
+</script>
+
+<style lang="scss">
+  /* Estilos específicos para este botón, si es necesario */
+  #theme-toggle {
+    background-color: transparent !important; /* Para que el fondo del botón no sea un color sólido */
+    border: none !important; /* Quita el borde si lo tiene */
+    padding: 0; /* Quita el padding si lo tiene */
+    color: var(--txt-light) !important; /* Color del icono */
+
+    &:hover,
+    &:focus {
+      color: var(--gold) !important; /* Color del icono en hover */
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
+    i {
+      font-size: 1.5rem; /* Tamaño de los íconos de sol/luna */
+      margin: 0; /* Asegura que no haya márgenes no deseados de .me-2 */
+    }
+  }
+
+  /* Ajustes para el tema claro */
+  body.light-theme #theme-toggle {
+    color: var(--txt-light) !important; /* En tema claro, txt-light es oscuro */
+    &:hover {
+      color: var(--gold) !important;
+    }
+  }
+</style>

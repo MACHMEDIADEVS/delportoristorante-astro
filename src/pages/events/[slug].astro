@@ -1,0 +1,443 @@
+---
+/* src/pages/events/[slug].astro */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { fakeEvents } from "../../utils/fakeData";
+
+// `getStaticPaths` para generar las páginas estáticas del evento
+export async function getStaticPaths() {
+  return fakeEvents.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+// Acceder a las props del evento
+const { event } = Astro.props;
+
+// Función para formatear la fecha y hora
+const defaultEventImage =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp";
+const eventHeroImage = event.flyer_event || defaultEventImage;
+
+// Extraer mes, día y hora como se muestra en la imagen
+let eventMonth = "";
+let eventDay = "";
+let eventTime = "";
+if (event.main_data.date_hour_event) {
+  // Asumimos formato MM/DD/YYYY HH:MM am/pm
+  const dateTimeParts = event.main_data.date_hour_event.split(" "); // ["MM/DD/YYYY", "HH:MM", "am/pm"]
+  if (dateTimeParts.length >= 3) {
+    const dateParts = dateTimeParts[0].split("/"); // ["MM", "DD", "YYYY"]
+    const monthNames = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    eventMonth = monthNames[parseInt(dateParts[0]) - 1]; // Mes (ej. JUL)
+    eventDay = dateParts[1]; // Día (ej. 18)
+    eventTime = `${dateTimeParts[1]} ${dateTimeParts[2]}`; // Hora (ej. 7:00 pm)
+  }
+}
+
+// Contenido de ejemplo para simular the_content()
+const exampleContent = `
+  <p>Join us for an exclusive evening of fine cigars, delicious Italian cuisine, and great company. This special event is designed to offer a unique sensory experience, blending the rich aromas of premium cigars with the exquisite flavors of Del Porto's authentic Italian dishes.</p>
+  <p>Whether you are a seasoned connoisseur or new to the world of cigars, this event promises to be an unforgettable night. Enjoy a curated selection of rare cigars paired with a multi-course dinner featuring our chef's specialties.</p>
+  <p>As we come together to celebrate this unique experience, we are also proud to support the Ronald McDonald House, with a portion of the proceeds going to this noble cause. Your participation will help provide comfort and care to families when they need it most.</p>
+  <p>Spaces are limited, so we encourage you to book your reservation early to secure your spot at this highly anticipated event. We look forward to sharing this memorable evening with you!</p>
+`;
+---
+
+<BaseLayout
+  title={event.title}
+  description={`Details about ${event.title} at Del Porto Ristorante.`}
+>
+  {
+    /* El main NO DEBE tener bg-dark ni text-light directamente, para que el body controle el tema */
+  }
+  <main class="single-event-page">
+    <article id={`post-${event.id}`} class="event-article">
+      <section
+        class="event-hero-section position-relative overflow-hidden"
+        style={`background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('${eventHeroImage}');`}
+      >
+        <div
+          class="container d-flex align-items-center justify-content-center h-100"
+        >
+          {
+            /* El título principal del hero se mostrará en el contenido de la página */
+          }
+        </div>
+      </section>
+
+      <div class="container py-5 event-padding">
+        <div class="row gx-lg-5">
+          <div class="col-lg-7 order-md-1 order-1">
+            <div class="event-header d-flex align-items-start mb-4">
+              {
+                eventMonth && eventDay && (
+                  <div class="event-date-box me-4 flex-shrink-0">
+                    <span class="month">{eventMonth}</span>
+                    <span class="day">{eventDay}</span>
+                  </div>
+                )
+              }
+              <div class="title-meta-wrapper flex-grow-1">
+                <h1 class="fw-bold mb-2 text-gold">{event.title}</h1>
+                <div
+                  class="event-meta-info d-flex flex-wrap align-items-center small text-muted"
+                >
+                  {
+                    event.main_data.location_event && (
+                      <span class="location me-3 mb-1">
+                        <i class="bi bi-geo-alt me-1 text-gold" />
+                        {event.main_data.location_event}
+                      </span>
+                    )
+                  }
+                  {
+                    eventTime && (
+                      <span class="time me-3 mb-1">
+                        <i class="bi bi-clock me-1 text-gold" />
+                        {eventTime}
+                      </span>
+                    )
+                  }
+                </div>
+              </div>
+            </div>
+
+            {
+              event.main_data.url_button_event && (
+                <a
+                  href={event.main_data.url_button_event}
+                  target="_blank"
+                  class="btn btn-primary btn-lg mb-4 animate-pulse-infinite"
+                >
+                  {event.main_data.text_button_event || "BOOK NOW"}
+                </a>
+              )
+            }
+
+            {
+              /* entry-content debe heredar el color, NO tener text-light fijo */
+            }
+            <div class="entry-content mb-5" set:html={exampleContent}>
+              {/* Contenido principal del evento (simulado) */}
+            </div>
+          </div>
+
+          {
+            event.flyer_event && (
+              <div class="col-lg-5 order-md-2 order-2">
+                {/* Wrapper para el sticky, y el flyer-container ahora es el que es sticky */}
+                <div class="flyer-container position-sticky">
+                  {" "}
+                  {/* Añadido position-sticky */}
+                  <img
+                    src={event.flyer_event}
+                    alt={`Flyer for ${event.title}`}
+                    class="img-fluid rounded-0"
+                  />
+                  {/* Eliminado el div flyer-info con contenido extra */}
+                </div>
+              </div>
+            )
+          }
+        </div>
+
+        {
+          event.sponsors && event.sponsors.length > 0 && (
+            <div class="sponsors-section border-top pt-5 mt-5">
+              <h4 class="text-center text-uppercase fw-bold mb-5 text-gold">
+                OUR SPONSORS
+              </h4>
+              <div class="sponsors-container d-flex flex-wrap justify-content-center align-items-center gap-4">
+                {event.sponsors.map((sponsor) => (
+                  <div class="sponsor-logo">
+                    {sponsor.link_sponsor ? (
+                      <a
+                        href={sponsor.link_sponsor}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img
+                          src={sponsor.logo || defaultEventImage}
+                          alt={sponsor.title_sponsor || "Sponsor Logo"}
+                          class="img-fluid"
+                        />
+                      </a>
+                    ) : (
+                      <img
+                        src={sponsor.logo || defaultEventImage}
+                        alt={sponsor.title_sponsor || "Sponsor Logo"}
+                        class="img-fluid"
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .single-event-page {
+    /* El fondo de la página lo controla el body y las secciones internas */
+    /* background-color: var(--bg-dark); REMOVIDO */
+    /* color: var(--txt-light); REMOVIDO */
+
+    .event-hero-section {
+      height: 70vh;
+      background-size: cover;
+      background-position: center;
+      margin-top: -75px;
+      padding-top: 75px;
+      animation: fadeIn 1s ease-out;
+
+      /* Degradado adicional en la parte superior para imitar la imagen */
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* Altura del degradado superior */
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.8),
+          rgba(0, 0, 0, 0)
+        );
+        z-index: 1; /* Asegura que esté por encima de la imagen de fondo */
+      }
+    }
+
+    .event-padding {
+      padding-top: 3rem !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .event-header {
+      .event-date-box {
+        background-color: var(--gold);
+        color: var(--txt-dark); /* Siempre oscuro sobre dorado */
+        padding: 1rem 1.5rem;
+        text-align: center;
+        line-height: 1;
+        font-weight: bold;
+        border-radius: 0;
+
+        .month {
+          display: block;
+          font-size: 1.5rem;
+          text-transform: uppercase;
+        }
+        .day {
+          display: block;
+          font-size: 2.5rem;
+        }
+      }
+
+      .title-meta-wrapper {
+        h1 {
+          font-size: 2.5rem !important;
+          padding-top: 0 !important;
+          line-height: 1.2;
+          color: var(
+            --txt-light
+          ); /* Hereda color principal, que cambia con el tema */
+          @media (max-width: 767.98px) {
+            font-size: 2rem !important;
+          }
+        }
+        .event-meta-info {
+          font-size: 0.9rem;
+          color: var(--txt-muted); /* Color muted, que cambia con el tema */
+          i {
+            color: var(--gold); /* Siempre dorado */
+            margin-right: 0.25rem;
+          }
+        }
+      }
+    }
+
+    .btn-lg {
+      padding: 0.8rem 2.5rem;
+      font-size: 1.1rem !important;
+    }
+
+    .animate-pulse-infinite {
+      animation: pulse-custom 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-custom {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(var(--gold), 0.7);
+      }
+      70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(var(--gold), 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(var(--gold), 0);
+      }
+    }
+
+    .entry-content {
+      line-height: 1.8;
+      p {
+        margin-bottom: 1rem;
+        color: inherit; /* Hereda el color del padre (body), que cambia con el tema */
+      }
+    }
+
+    .flyer-container {
+      position: sticky; /* Hacemos el contenedor del flyer sticky */
+      top: 100px; /* Se pegará a 100px del top de la ventana (debajo del header) */
+      align-self: flex-start; /* Para que flexbox respete el sticky */
+      /* Eliminar estilos de fondo/borde del flyer-container ya que no están en la imagen */
+      /* background-color: var(--bg-dark-secondary); REMOVIDO */
+      /* padding: 4rem; REMOVIDO */
+      /* border: 1px solid var(--border-dark); REMOVIDO */
+
+      @media (max-width: 991.98px) {
+        /* Desactiva sticky en pantallas pequeñas */
+        position: static;
+        top: auto;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+        /* Eliminar el margen superior de la imagen si ya no está en el contenedor */
+        /* margin-top: 2rem; REMOVIDO */
+      }
+    }
+
+    .sponsors-section {
+      border-top: 1px solid var(--border-dark); /* Borde oscuro */
+      padding-top: 5rem;
+      margin-top: 5rem;
+
+      h4 {
+        font-size: 1.8rem !important;
+        padding-top: 1rem;
+      }
+      .sponsors-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+
+        .sponsor-logo {
+          img {
+            max-height: 80px;
+            width: auto;
+            /* Filtro para modo oscuro: blanco y negro, ligeramente más brillante */
+            filter: grayscale(100%) brightness(150%) contrast(100%);
+            transition: filter 0.3s ease;
+
+            &:hover {
+              filter: grayscale(0%) brightness(100%) contrast(100%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* Estilos para el TEMA CLARO */
+  body.light-theme .single-event-page {
+    /* El body ya cambia el background-color y color. No se necesita redefinir aquí */
+
+    .event-header {
+      .event-date-box {
+        background-color: var(--gold); /* Dorado */
+        color: var(--txt-dark); /* Negro */
+      }
+      .title-meta-wrapper {
+        h1 {
+          color: var(--txt-light); /* En tema claro: negro */
+        }
+        .event-meta-info {
+          color: var(--txt-muted); /* En tema claro: gris oscuro */
+          i {
+            color: var(--gold); /* Dorado */
+          }
+        }
+      }
+    }
+
+    .btn-primary {
+      background-color: var(--gold) !important;
+      border-color: var(--gold) !important;
+      color: var(--txt-dark) !important;
+    }
+    @keyframes pulse-custom {
+      0% {
+        box-shadow: 0 0 0 0 rgba(var(--gold), 0.5);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(var(--gold), 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(var(--gold), 0);
+      }
+    }
+
+    .entry-content {
+      p {
+        color: var(--txt-light); /* En tema claro: negro */
+      }
+    }
+
+    .sponsors-section {
+      border-color: var(
+        --border-dark
+      ) !important; /* En tema claro: borde oscuro */
+      h4 {
+        color: var(--gold); /* Dorado */
+      }
+      .sponsors-container {
+        .sponsor-logo {
+          img {
+            /* Filtro para modo claro: blanco y negro, más oscuro */
+            filter: grayscale(100%) brightness(50%) contrast(100%);
+            &:hover {
+              filter: grayscale(0%) brightness(100%) contrast(100%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

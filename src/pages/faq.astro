@@ -1,0 +1,246 @@
+---
+/* src/pages/faq.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/sections/HeroPage.astro';
+import AccordionFAQ from '../components/wordpress/AccordionFAQ.astro';
+import Newsletter from '../components/sections/Newsletter.astro';
+
+// Información para el Hero y SEO
+const pageTitle = "Frequently Asked Questions";
+const seoDescription = "Find answers to common questions about Del Porto Ristorante, including reservations, events, catering, and policies.";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica para FAQ
+const heroAltText = "Delicious dessert dish on a table at a restaurant";
+
+// Datos de las FAQs extraídas de info.md
+const faqs = [
+  { question: "Can I bring my own DJ?", answer: "Yes, or we can add one for $500." },
+  { question: "Can I add decorations?", answer: "Yes, or we can provide them for $250." },
+  { question: "Can I bring a photo booth?", answer: "Yes, or we can provide one for $500." },
+  { question: "Can I use your audio system?", answer: "Yes. We provide a Spotify tablet (DJs must bring their own speakers)." },
+  { question: "Can I host my event on the patio?", answer: "Yes, with prior approval. Not available Fridays/Saturdays after 4 PM." },
+  { question: "Can we do family style or buffet?", answer: "Yes. Buffet requires 40+ guests." },
+  { question: "Can we do à la carte?", answer: "Yes, for 20 guests or fewer." },
+  { question: "Do children pay different prices?", answer: "Children can order from the kids menu. If eating from the regular menu, they pay full price." },
+  { question: "Can I pay by check?", answer: "No. We only accept credit card, cash, or certified checks in advance." },
+  { question: "Can I pay online?", answer: "Yes, via the 'View and Pay' button in your invoice email." },
+  { question: "Can I bring my own cake?", answer: "Yes. Cake cutting fee is $2 per person." },
+  { question: "Is there a discount for non-drinkers?", answer: "No. Drink packages are unlimited and priced per guest. We recommend a cash bar instead." },
+  { question: "Is premium liquor included in the open bar?", answer: "No. Standard liquor only. Drink menu provided for selection." },
+];
+
+const currentYear = new Date().getFullYear();
+const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0');
+const currentDay = new Date().getDate().toString().padStart(2, '0');
+const defaultFormDate = `${currentYear}-${currentMonth}-${currentDay}`;
+---
+
+<BaseLayout title="FAQ" description={seoDescription}>
+  <HeroPage
+    title="FAQ"
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="faq-page-content bg-dark">
+    <section class="py-5">
+      <div class="container">
+        <div class="row gx-lg-5">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h2 class="text-light mb-4">Frequently Asked Questions</h2>
+            <p class="text-muted mb-4">
+              Here you can find answers to the most common questions about our restaurant, services, and events.
+              If you can't find what you're looking for, please don't hesitate to contact us directly.
+            </p>
+            <a href="/contact" class="btn btn-primary btn-lg rounded-0">CONTACT US</a>
+          </div>
+          <div class="col-lg-6">
+            <AccordionFAQ faqs={faqs} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container text-center">
+        <h2 class="text-gold mb-5">Buy One Get Two! Only This Weekends!</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form class="reserve-form bg-dark p-4 p-md-5 border border-darker rounded-0">
+                    <h3 class="text-light mb-4">Make a Reserve</h3>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <label for="reserveDate" class="form-label text-light">Date</label>
+                            <input type="date" class="form-control rounded-0" id="reserveDate" value={defaultFormDate}>
+                        </div>
+                        <div class="col-md-4 mt-3 mt-md-0">
+                            <label for="reserveTime" class="form-label text-light">Time</label>
+                            <input type="time" class="form-control rounded-0" id="reserveTime" value="19:00">
+                        </div>
+                        <div class="col-md-4 mt-3 mt-md-0">
+                            <label for="reserveParty" class="form-label text-light">Persons</label>
+                            <select class="form-select rounded-0" id="reserveParty">
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg rounded-0 mt-3">BOOK A TABLE</button>
+                </form>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container text-center">
+        <h2 class="text-gold mb-5">We Can Help You</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker rounded-0">
+              <i class="bi bi-person-fill fs-1 text-gold mb-3"></i>
+              <h3 class="h5 text-light mb-2">Partners Information</h3>
+              <p class="text-muted small">Learn about our partnerships and collaborations.</p>
+              <a href="#" class="btn btn-sm btn-outline-light rounded-0 mt-2">Learn More</a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker rounded-0">
+              <i class="bi bi-newspaper fs-1 text-gold mb-3"></i>
+              <h3 class="h5 text-light mb-2">Latest News and Updates</h3>
+              <p class="text-muted small">Stay informed with our recent announcements.</p>
+              <a href="#" class="btn btn-sm btn-outline-light rounded-0 mt-2">Read Blog</a>
+            </div>
+          </div>
+          <div class="col">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker rounded-0">
+              <i class="bi bi-headset fs-1 text-gold mb-3"></i>
+              <h3 class="h5 text-light mb-2">Online Support</h3>
+              <p class="text-muted small">Get immediate assistance with our online support.</p>
+              <a href="#" class="btn btn-sm btn-outline-light rounded-0 mt-2">Get Help</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .faq-page-content {
+    h2.text-gold, h2.text-light {
+      font-size: 2.5rem !important;
+    }
+    h3.h5 {
+        font-size: 1.5rem !important;
+    }
+    .lead, p.text-muted {
+      font-size: 1rem;
+    }
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+    .btn-sm {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.85rem;
+    }
+
+    .reserve-form, .bg-dark-secondary {
+        background-color: var(--bg-dark); /* Fondo de formulario y cards */
+        border-color: var(--border-darker) !important;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+        label {
+            color: var(--txt-light);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            background-color: var(--bg-dark-secondary);
+            border: 1px solid var(--border-dark);
+            color: var(--txt-light);
+            padding: 0.75rem 1rem;
+            border-radius: 0px !important;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+            &:focus {
+                background-color: var(--bg-dark-secondary);
+                border-color: var(--gold);
+                box-shadow: 0 0 0 0.25rem rgba(var(--gold), 0.25);
+                color: var(--txt-light);
+                outline: none;
+            }
+
+            &::placeholder {
+                color: var(--txt-muted);
+            }
+        }
+        .form-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+    }
+
+    .bg-dark-secondary {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      i {
+        transition: color 0.3s ease;
+      }
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        i {
+          color: var(--gold-hover);
+        }
+      }
+      border-color: var(--border-darker) !important;
+    }
+
+
+    body.light-theme & {
+      background-color: var(--bg-dark); /* Fondo principal claro */
+
+      .bg-dark, .bg-darker {
+        background-color: var(--bg-dark);
+      }
+      .reserve-form, .bg-dark-secondary {
+        background-color: var(--bg-dark);
+        border-color: var(--border-dark) !important;
+        label {
+          color: var(--txt-light);
+        }
+        .form-control, .form-select {
+          background-color: var(--bg-dark-secondary);
+          border-color: var(--border-dark);
+          color: var(--txt-light);
+          &:focus {
+            background-color: var(--bg-dark-secondary);
+            border-color: var(--gold);
+            color: var(--txt-light);
+          }
+        }
+        .form-select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23111111' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+        }
+      }
+      .text-light {
+        color: var(--txt-light);
+      }
+      .text-muted {
+        color: var(--txt-muted);
+      }
+    }
+  }
+</style>

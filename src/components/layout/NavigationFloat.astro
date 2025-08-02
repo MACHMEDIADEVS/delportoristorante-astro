@@ -1,0 +1,119 @@
+---
+/* src/components/layout/NavigationFloat.astro */
+import ThemeToggle from "../base/ThemeToggle.astro";
+---
+
+<nav class="navigation-float">
+  <ul class="nav nav-pills w-100 justify-content-around align-items-center">
+    {/* align-items-center para centrar verticalmente */}
+    <li class="nav-item">
+      <a class="nav-link" href="/events">
+        <i class="bi bi-calendar-event nav-icon"></i>
+        {/* Icono de evento */}
+        <span>EVENTS</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/faq">
+        <i class="bi bi-question-circle nav-icon"></i>
+        {/* Icono de FAQ */}
+        <span>F.A.Q.</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/menu">
+        <i class="bi bi-book nav-icon"></i>
+        {/* Icono de menú */}
+        <span>OUR MENU</span>
+      </a>
+    </li>
+   
+  </ul>
+</nav>
+
+<style lang="scss">
+  .navigation-float {
+    position: fixed;
+    bottom: 3dvh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 75dvw;
+    background-color: rgba(17, 17, 17, 0.8);
+    border: 1px solid var(--border-dark);
+    padding: 0.5rem 1.5rem;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .nav-link {
+        color: var(--txt-light);
+        display: flex;
+        flex-direction: column; /* Icono arriba del texto */
+        align-items: center;
+        font-size: 0.9rem;
+        line-height: 1.2;
+        transition: color 0.3s ease;
+        text-transform: uppercase;
+        padding: 0.5rem 0.75rem; /* Ajusta el padding para los elementos de navegación */
+
+        .nav-icon {
+          font-size: 1.5rem;
+          margin-bottom: 0.25rem;
+        }
+
+        &:hover {
+          color: var(--gold);
+        }
+      }
+    }
+
+    /* Eliminar estilos del switch para ThemeToggle de aquí */
+    /* #theme-toggle { ... } */
+    /* body.light-theme #theme-toggle { ... } */
+    /* body:not(.light-theme) #theme-toggle::after { ... } */
+    /* body.light-theme #theme-toggle::after { ... } */
+
+    /* Responsive para Mobile */
+    @media (max-width: 767.98px) {
+      bottom: 0dvh;
+      width: 100dvw;
+      border-top: 1px solid var(--border-dark);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0;
+      padding: 0.5rem 0;
+
+      .nav-item .nav-link {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem; /* Menor padding en móvil */
+      }
+      .nav-item .nav-link .nav-icon {
+        font-size: 1.2rem; /* Iconos más pequeños en móvil */
+        margin-bottom: 0.1rem; /* Menor espacio entre ícono y texto en móvil */
+      }
+    }
+  }
+
+  body.light-theme .navigation-float {
+    background-color: rgba(20, 20, 20, 0.75);
+    border-color: var(--border-dark);
+
+    .nav-item .nav-link {
+      color: var(--txt-light);
+      &:hover {
+        color: var(--gold);
+      }
+    }
+  }
+</style>

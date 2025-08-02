@@ -1,0 +1,177 @@
+---
+/* src/pages/events/index.astro */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroPage from "../../components/sections/HeroPage.astro";
+import CardEvent from "../../components/ui/CardEvent.astro";
+import AccordionFAQ from "../../components/wordpress/AccordionFAQ.astro";
+import Newsletter from "../../components/sections/Newsletter.astro";
+import { fakeEvents } from "../../utils/fakeData"; // Importa los datos falsos
+
+const pageTitle = "HOST YOUR EVENT AT DEL PORTO";
+const leitMotive =
+  "ITALIAN FLAVORS. PERSONALIZED SERVICE. UNFORGETTABLE MOMENTS.";
+const seoDescription =
+  "Plan your next celebration at Del Porto Ristorante with curated Italian menus, tailored event packages, and expert service for gatherings from 15 to 120 guests.";
+const heroImageUrl =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText =
+  "Private Event Setup with Italian Menu at Del Porto Restaurant";
+
+// Descripción larga de la página de eventos
+const longDescription = `
+  Thank you for considering Del Porto Italian Ristorante to host your next event. Whether it's an intimate gathering, a milestone celebration, or a corporate meeting, we offer curated Italian menus, elegant service, and personalized packages to ensure your event is seamless and memorable.
+  Choose from lunch or dinner menus, buffet or plated options, open bar or custom drink menus—and let our team handle the rest.
+`;
+
+
+
+// Datos de las FAQs
+const faqs = [
+  {
+    question: "Can I bring my own DJ?",
+    answer: "Yes, or we can add one for $500.",
+  },
+  {
+    question: "Can I add decorations?",
+    answer: "Yes, or we can provide them for $250.",
+  },
+  {
+    question: "Can I bring a photo booth?",
+    answer: "Yes, or we can provide one for $500.",
+  },
+  {
+    question: "Can I use your audio system?",
+    answer:
+      "Yes. We provide a Spotify tablet (DJs must bring their own speakers).",
+  },
+  {
+    question: "Can I host my event on the patio?",
+    answer:
+      "Yes, with prior approval. Not available Fridays/Saturdays after 4 PM.",
+  },
+  {
+    question: "Can we do family style or buffet?",
+    answer: "Yes. Buffet requires 40+ guests.",
+  },
+  { question: "Can we do à la carte?", answer: "Yes, for 20 guests or fewer." },
+  {
+    question: "Do children pay different prices?",
+    answer:
+      "Children can order from the kids menu. If eating from the regular menu, they pay full price.",
+  },
+  {
+    question: "Can I pay by check?",
+    answer:
+      "No. We only accept credit card, cash, or certified checks in advance.",
+  },
+  {
+    question: "Can I pay online?",
+    answer: "Yes, via the 'View and Pay' button in your invoice email.",
+  },
+  {
+    question: "Can I bring my own cake?",
+    answer: "Yes. Cake cutting fee is $2 per person.",
+  },
+  {
+    question: "Is there a discount for non-drinkers?",
+    answer:
+      "No. Drink packages are unlimited and priced per guest. We recommend a cash bar instead.",
+  },
+  {
+    question: "Is premium liquor included in the open bar?",
+    answer: "No. Standard liquor only. Drink menu provided for selection.",
+  },
+];
+
+// Obtener los 6 eventos más recientes (o simplemente los primeros 6 de fakeEvents)
+const latestEvents = fakeEvents.slice(0, 6);
+---
+
+<BaseLayout title={pageTitle} description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={leitMotive}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="events-page-content">
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Latest Events</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {
+            latestEvents.map((event) => (
+              <div class="col">
+                <CardEvent event={event} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Event Classifications</h2>
+        <div class="row text-center text-light">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker">
+              <h3 class="h4 text-gold mb-3">Small Gatherings</h3>
+              <p>15–25 guests</p>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker">
+              <h3 class="h4 text-gold mb-3">Semi-Private</h3>
+              <p>26–49 guests</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-4 bg-dark-secondary h-100 border border-darker">
+              <h3 class="h4 text-gold mb-3">Private Events</h3>
+              <p>50–120 guests</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Our Event Packages</h2>
+
+        <div class="text-center mt-5">
+          <h3 class="text-gold mb-3">3-Step Booking Process</h3>
+          <ul class="list-unstyled text-light">
+            <li class="mb-2">
+              <i class="bi bi-1-circle-fill text-gold me-2"></i> Submit Info Form
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-2-circle-fill text-gold me-2"></i> Receive Estimate
+              & Guide
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-3-circle-fill text-gold me-2"></i> Pay Deposit & Confirm
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container">
+        <AccordionFAQ title="Event Guidelines & FAQs" faqs={faqs} />
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker text-center">
+      <div class="container">
+        <p class="lead text-light">
+          At Del Porto, every event is treated with care, flavor, and elegance.
+          Let us bring Italian hospitality to your special day.
+        </p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

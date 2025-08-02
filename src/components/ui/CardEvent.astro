@@ -1,0 +1,137 @@
+---
+/* src/components/ui/CardEvent.astro */
+interface Props {
+  event: {
+    id: number;
+    title: string;
+    slug: string;
+    flyer_event: string;
+    main_data: {
+      date_hour_event: string;
+      url_button_event: string;
+    };
+  };
+}
+
+const { event } = Astro.props;
+
+const getDateParts = (dateHourString: string) => {
+  const parts = dateHourString.split(" ")[0].split("/");
+  const monthNames = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+  const month = monthNames[parseInt(parts[0]) - 1];
+  const day = parts[1];
+  return { month, day };
+};
+
+const { month, day } = getDateParts(event.main_data.date_hour_event);
+const defaultEventImage =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp";
+---
+
+<div class="card event-card h-100 border-0 rounded-0">
+  <div class="position-relative">
+    <img
+      src={event.flyer_event || defaultEventImage}
+      class="card-img-top rounded-0"
+      alt={event.title}
+    />
+    <div class="event-date position-absolute top-0 start-0 p-2 text-center">
+      <span class="d-block">{month}</span>
+      <span class="d-block">{day}</span>
+    </div>
+  </div>
+  <div class="card-body rounded-0 d-flex flex-column justify-content-between">
+    <h5 class="card-title">{event.title}</h5>
+    <div class="mt-auto">
+      <a
+        href={`/events/${event.slug}`}
+        class="btn btn-sm btn-outline-primary w-100">Read more</a
+      >
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .event-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    img.card-img-top {
+      height: 200px;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    .event-date {
+      color: var(--txt-light);
+      background-color: var(--bg-dark);
+      font-size: 0.9em;
+      line-height: 1;
+      padding: 0.75rem 1rem !important;
+      text-align: center;
+
+      span:first-of-type {
+        font-size: 1rem !important;
+        color: var(--gold);
+        font-weight: bold;
+      }
+      span:last-of-type {
+        font-size: 1.7rem !important;
+        color: var(--txt-light);
+        font-weight: bold;
+      }
+    }
+
+    .card-body {
+      background-color: var(--bg-dark-secondary);
+      border-top: 1px solid var(--border-dark);
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      h5.card-title {
+        color: var(--txt-light);
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn {
+        margin-top: auto;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 1rem;
+        border-color: var(--border-light) !important;
+        color: var(--txt-light) !important;
+
+        &:hover {
+          background-color: var(--gold) !important;
+          color: var(--txt-dark) !important;
+          border-color: var(--gold) !important;
+        }
+      }
+    }
+  }
+</style>

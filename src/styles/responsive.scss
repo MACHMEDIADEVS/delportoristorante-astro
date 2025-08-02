@@ -1,0 +1,96 @@
+/* src/styles/responsive.scss */
+
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 767.98px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  h3 {
+    font-size: 1.2rem !important;
+  }
+  h4 {
+    font-size: 1.25rem !important;
+  }
+
+  h5,
+  h6 {
+    font-size: 1.25rem !important;
+  }
+
+  .btn {
+    font-size: 0.9rem !important;
+  }
+
+  /* Header Responsive */
+  header#masthead.site-header {
+    .site-branding .custom-logo {
+      max-height: 2em;
+    }
+    .site-header-toggler {
+      padding: 0.3rem 0.5rem;
+      .site-header-toggler-text {
+        display: none !important;
+      }
+    }
+    .site-header-actions .site-header-action-btn {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.65rem;
+    }
+    .site-header-action-btn-phone-mobile {
+      padding: 0.3rem 0.5rem;
+    }
+  }
+
+  /* Navigation Float Responsive */
+  .navigation-float {
+    bottom: 0dvh;
+    width: 100dvw;
+    border-top: 1px solid var(--border-dark);
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 0;
+    padding: 0.5rem 0;
+
+    .nav-item .nav-link {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      .nav-icon {
+        font-size: 1.2rem;
+        margin-bottom: 0.1rem;
+      }
+    }
+  }
+}
+
+/* Estilos para iPads y tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  h1 {
+    font-size: 2.2rem !important;
+  }
+  h2 {
+    font-size: 1.8rem !important;
+  }
+  h3 {
+    font-size: 1.5rem !important;
+  }
+
+  /* Header Responsive */
+  header#masthead.site-header {
+    .site-branding .custom-logo {
+      max-height: 2.5em;
+    }
+    .site-header-actions .site-header-action-btn {
+      padding: 0.5rem 0.7rem;
+    }
+  }
+
+  /* Navigation Float Responsive */
+  .navigation-float {
+    bottom: 2dvh;
+    width: 90dvw;
+  }
+}

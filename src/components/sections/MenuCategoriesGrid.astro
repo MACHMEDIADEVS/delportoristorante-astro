@@ -1,0 +1,82 @@
+---
+/* src/components/sections/MenuCategoriesGrid.astro */
+import { fakeMenus } from "../../utils/fakeData";
+import CardMenu from "../ui/CardMenu.astro";
+const homePageMenusRaw = fakeMenus.filter(
+  (menu) =>
+    menu.homepage_carta ||
+    [
+      "MAIN MENU",
+      "TAKE A DELIVERY MENU",
+      "KIDS MENU",
+      "COCKTAIL & WINE MENU",
+      "DESSERT MENU",
+      "SECONDI",
+      "HOMEMADE PASTA",
+      "SPECIALS MENU",
+    ].includes(menu.title)
+);
+homePageMenusRaw.sort(
+  (a, b) => (a.order_frontpage || 99) - (b.order_frontpage || 99)
+);
+const menusForGrid = homePageMenusRaw.slice(0, 8);
+---
+
+<section id="menu-categories-section" class="py-5 bg-darker">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h4>MENU CATEGORIES</h4>
+      <p class="subtitle">BENVENUTI ALLA FAMIGLIA DEL PORTO</p>
+      <a href="/menu" class="btn btn-primary mt-3">View Full Menu</a>
+    </div>
+
+    <div
+      class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-4 menu-grid-uniform"
+    >
+      {
+        menusForGrid.map((menu, index) => (
+          <div class="col d-flex">
+            <CardMenu menu={menu} gridItemClass="card-menu" itemIndex={index} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuCards = document.querySelectorAll(".card-menu");
+
+    menuCards.forEach((card) => {
+      card.addEventListener("mouseenter", function () {
+        this.style.transform = "scale(1.05)";
+        this.style.opacity = "0.85";
+      });
+
+      card.addEventListener("mouseleave", function () {
+        this.style.transform = "scale(1)";
+        this.style.opacity = "1";
+      });
+    });
+  });
+</script>
+
+<style lang="scss">
+  #menu-categories-section {
+    background-color: var(--bg-dark-secondary);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+
+    .subtitle {
+      font-size: 1.25rem;
+      color: var(--txt-light);
+    }
+  }
+
+  .card-menu {
+    transition:
+      transform 0.3s ease-in-out,
+      opacity 0.3s ease-in-out;
+  }
+</style>

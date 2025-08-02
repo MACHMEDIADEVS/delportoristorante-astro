@@ -1,0 +1,181 @@
+---
+/* src/pages/privacy-policy.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+// import HeroPage from '../components/sections/HeroPage.astro'; // Eliminar esta línea o comentarla
+
+// Información para el Hero y SEO (se mantendrá solo para metadatos de la página)
+const pageTitle = "Privacy Policy";
+const seoDescription = "Understand how Del Porto Ristorante collects, uses, and protects your personal information. Your privacy is important to us.";
+// const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Eliminar o comentar
+// const heroAltText = "Restaurant ambiance with blurred background, symbolizing data protection"; // Eliminar o comentar
+
+// Fecha de última actualización (según info.md)
+const lastUpdated = "May 13, 2025";
+
+// Contenido inventado para la Política de Privacidad
+const privacyContent = [
+  {
+    title: "1. Information We Collect",
+    paragraphs: [
+      "When you interact with our website or services, we may collect the following information:",
+      "<strong>Personal Data:</strong> Name, email address, phone number, billing information (e.g., when you place an order or purchase a gift card).",
+      "<strong>Reservation Information:</strong> Date/time of booking, party size, special requests.",
+      "<strong>Device & Usage Data:</strong> IP address, browser type, pages visited, access times.",
+      "<strong>Payment Details:</strong> Only collected securely through our payment partners (e.g., ToastTab)."
+    ]
+  },
+  {
+    title: "2. How We Use Your Information",
+    paragraphs: [
+      "We use the information we collect to:",
+      "Confirm and manage reservations or catering orders",
+      "Process gift card purchases and balance inquiries",
+      "Send important updates or event communications",
+      "Improve website performance and customer experience",
+      "Comply with legal or financial obligations"
+    ]
+  },
+  {
+    title: "3. Sharing Your Information",
+    paragraphs: [
+      "We do not sell your personal information.",
+      "We may share limited data with trusted third-party providers (such as payment processors, reservation tools, or marketing platforms) solely to carry out services on our behalf."
+    ]
+  },
+  {
+    title: "4. Email Communications",
+    paragraphs: [
+      "If you subscribe to our newsletter or event updates:",
+      "You may receive occasional emails about offers or events.",
+      "You can unsubscribe at any time using the “Unsubscribe” link included in each email."
+    ]
+  },
+  {
+    title: "5. Cookies & Analytics",
+    paragraphs: [
+      "Our website uses cookies and analytics tools to:",
+      "Understand user behavior",
+      "Measure marketing performance",
+      "Personalize the Browse experience",
+      "You can control cookies through your browser settings."
+    ]
+  },
+  {
+    title: "6. Data Security",
+    paragraphs: [
+      "We use industry-standard encryption and security tools to protect your information. While no method is 100% secure, we strive to keep your data safe and private."
+    ]
+  },
+  {
+    title: "7. Your Choices & Rights",
+    paragraphs: [
+      "You can:",
+      "Request access to the data we have about you",
+      "Ask us to delete or correct your information",
+      "Opt out of marketing communications",
+      "To make a request, please email us at: delportorestaurant@gmail.com"
+    ]
+  },
+  {
+    title: "8. Third-Party Links",
+    paragraphs: [
+      "Our website may include links to services like ToastTab or social media platforms. These are governed by their own privacy policies."
+    ]
+  },
+  {
+    title: "9. Contact Us",
+    paragraphs: [
+      "For any questions regarding this Privacy Policy, contact us at:",
+      "delportorestaurant@gmail.com",
+      "91 Elizabeth Ave, Elizabeth, NJ 07206",
+      "(908) 409-8424"
+    ]
+  }
+];
+---
+
+<BaseLayout title="Privacy Policy" description={seoDescription}>
+  <main class="policy-page-content bg-darker text-light pt-5"> {/* Añadido pt-5 para espacio superior */}
+    <section class="py-5">
+      <div class="container">
+        <h1 class="text-gold text-center mb-4">{pageTitle}</h1> {/* Cambiado a h1 */}
+        <p class="text-muted text-center mb-5">Last Updated: {lastUpdated}</p>
+
+        {privacyContent.map(section => (
+          <div class="policy-section mb-5">
+            <h3 class="h4 text-light mb-3">{section.title}</h3>
+            {section.paragraphs.map(p => (
+              <p class="text-light" set:html={p}></p>
+            ))}
+          </div>
+        ))}
+
+        <div class="d-flex justify-content-center gap-3 mt-5">
+          <a href="/cookie-policy" class="btn btn-outline-light btn-lg rounded-0">Cookie Policy</a>
+          <a href="/terms-and-conditions" class="btn btn-outline-light btn-lg rounded-0">Terms and Conditions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .policy-page-content {
+    /* La altura del header es de unos 75px, así que el padding-top del main/section debe compensar */
+    padding-top: 75px; /* Asegura que el contenido no quede debajo del header fijo */
+
+    h1.text-gold { /* Estilo para el nuevo h1 */
+      font-size: 3rem !important;
+      @media (max-width: 767.98px) {
+        font-size: 2.2rem !important;
+      }
+    }
+    h3.h4 {
+      font-size: 1.8rem !important;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem !important;
+    }
+    p.text-muted {
+      font-size: 1rem;
+    }
+    p.text-light {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+
+      strong {
+        color: var(--gold);
+      }
+    }
+
+    .policy-section {
+      &:last-of-type {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .btn-lg {
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  body.light-theme .policy-page-content {
+    background-color: var(--bg-darker);
+    h1.text-gold {
+      color: var(--gold);
+    }
+    h3.h4 {
+      color: var(--gold);
+      border-bottom-color: var(--border-dark);
+    }
+    p.text-muted, p.text-light {
+      color: var(--txt-light);
+    }
+    strong {
+      color: var(--gold);
+    }
+  }
+</style>

@@ -1,0 +1,153 @@
+---
+/* src/components/ui/ReviewCard.astro */
+interface Props {
+  review: {
+    id: number;
+    name: string;
+    date: string;
+    rating: number;
+    text: string;
+    profileImage: string;
+  };
+}
+
+const { review } = Astro.props;
+
+// Función para generar las estrellas
+const renderStars = (rating: number) => {
+  let stars = [];
+  for (let i = 0; i < 5; i++) {
+    if (i < rating) {
+      stars.push('<i class="bi bi-star-fill text-gold me-1"></i>');
+    } else {
+      stars.push('<i class="bi bi-star text-muted me-1"></i>'); // Estrella vacía si es necesario, aunque en la imagen todas son llenas
+    }
+  }
+  return stars.join("");
+};
+
+const googleLogoSvg = `
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_327_108)">
+    <path d="M22.56 12.25C22.56 11.45 22.49 10.7 22.37 9.95H12V14.61H18.18C17.84 16.53 16.74 17.97 15.11 19.03V22.09H19.03C21.28 19.98 22.56 16.92 22.56 12.25Z" fill="#4285F4"/>
+    <path d="M12 24C15.24 24 17.96 22.92 19.95 21.14L15.11 19.03C13.88 19.82 12.24 20.31 10.6 20.31C7.4 20.31 4.67 18.21 3.61 15.22H0.44V18.3C1.49 20.91 3.86 22.95 6.64 23.91L12 24Z" fill="#34A853"/>
+    <path d="M4.09 14.3H0.88C0.32 13.04 0 11.58 0 10C0 8.42 0.32 6.96 0.88 5.7H4.09C3.96 6.35 3.88 6.96 3.88 7.6C3.88 8.24 3.96 8.85 4.09 9.5H10.6C10.6 8.85 10.51 8.24 10.37 7.6H4.09V5.7H10.37C10.51 5.05 10.6 4.41 10.6 3.75C10.6 3.09 10.51 2.45 10.37 1.8V1.87L7.05 0.05C6.12 0.65 5.34 1.37 4.7 2.12L1.64 0H0C0.66 1.48 1.8 2.76 3.12 3.74L0.44 6.81C1.49 9.42 3.86 11.46 6.64 12.42L12 12.42V14.3H4.09Z" fill="#FBBC05"/>
+    <path d="M24 10C24 9.17 23.91 8.35 23.75 7.6H12V10.31H17.78C17.65 11.08 17.37 11.85 16.96 12.59C16.54 13.33 16.03 14 15.42 14.59L19.34 17.51C21.43 15.54 22.56 12.98 22.56 10Z" fill="#EA4335"/>
+    </g>
+    <defs>
+    <clipPath id="clip0_327_108">
+    <rect width="24" height="24" fill="white"/>
+    </clipPath>
+    </defs>
+  </svg>
+`;
+---
+
+<div class="review-card h-100 bg-darker rounded-0 border border-dark">
+  <div
+    class="card-header d-flex align-items-center justify-content-between pb-0 pt-3 px-3 border-0"
+  >
+    <div class="d-flex align-items-center">
+      <img
+        src={review.profileImage}
+        alt={review.name}
+        class="rounded-circle me-3"
+      />
+      <div>
+        <h6 class="mb-0 text-light">{review.name}</h6>
+        <small class="text-muted">{review.date}</small>
+      </div>
+    </div>
+    <div class="google-logo" set:html={googleLogoSvg} />
+  </div>
+  <div class="card-body px-3 py-2">
+    <div class="stars mb-2" set:html={renderStars(review.rating)} />
+    <p class="text-invert small mb-0">{review.text}</p>
+  </div>
+</div>
+
+<style lang="scss">
+  .review-card {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    cursor: grab; /* Para indicar que es un elemento arrastrable en un carrusel */
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+      background-color: transparent !important;
+      img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+        border: 2px solid var(--gold);
+      }
+      h6 {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+      .google-logo {
+        svg {
+          fill: var(
+            --txt-light
+          ); /* Para que el logo de Google se adapte un poco al tema si no tiene colores fijos */
+          transition: fill 0.3s ease;
+        }
+      }
+    }
+
+    .card-body {
+      background-color: transparent !important;
+      .stars {
+        .bi-star-fill,
+        .bi-star {
+          font-size: 0.9rem;
+        }
+        .bi-star-fill {
+          color: var(--gold);
+        }
+        .bi-star {
+          color: var(
+            --txt-muted
+          ); /* Estrellas vacías en muted si no todas son 5 */
+        }
+      }
+      p {
+        line-height: 1.5;
+        font-size: 0.9rem;
+        // color: var(--border-light);
+      }
+    }
+  }
+
+  body.light-theme .review-card {
+    background-color: var(--bg-darker); /* En tema claro, es blanco */
+    border-color: var(--border-dark) !important; /* Borde oscuro */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    &:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+    .card-header {
+      img {
+        border-color: var(--gold);
+      }
+      h6 {
+        color: var(--txt-light); /* En tema claro, texto oscuro */
+      }
+      .google-logo {
+        /* Los logos SVG con colores fijos como el de Google a menudo no se modifican con el tema */
+        /* Si se necesita, puedes tener una versión invertida o ajustar el fill aquí */
+      }
+    }
+    .card-body {
+      p {
+        color: var(--txt-light); /* En tema claro, texto oscuro */
+      }
+    }
+  }
+</style>

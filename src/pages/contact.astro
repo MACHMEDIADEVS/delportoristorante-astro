@@ -1,0 +1,195 @@
+---
+/* src/pages/contact.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/sections/HeroPage.astro';
+import Newsletter from '../components/sections/Newsletter.astro';
+
+// Información para el Hero y SEO
+const pageTitle = "RESERVATION";
+const pageSubtitle = "WE SERVE ALL HOLIDAYS";
+const seoDescription = "Make a reservation at Del Porto Ristorante. Contact us for private events, catering inquiries, or any questions. We look forward to hearing from you!";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = "People dining and enjoying food at a restaurant";
+
+// Información de contacto adicional (ya presente en el footer, pero para coherencia con la sección)
+const contactInfo = {
+  address: "91 Elizabeth Ave, Elizabeth, NJ 07206",
+  phone: "(908) 409-8424",
+  email: "delportorestaurant@gmail.com",
+};
+
+// Obtener la fecha actual para el campo de fecha del formulario
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate()).padStart(2, '0');
+const defaultDate = `${year}-${month}-${day}`; // Formato YYYY-MM-DD para input type="date"
+---
+
+<BaseLayout title="Contact" description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="contact-page-content bg-darker">
+    <section class="py-5">
+      <div class="container">
+        <div class="row gx-lg-5 justify-content-center">
+          <div class="col-lg-8">
+            <h2 class="text-gold mb-4 text-center">Book a Table</h2>
+            <form class="booking-form bg-dark p-4 p-md-5 border border-darker rounded-0">
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="bookingDate" class="form-label text-light">Date</label>
+                  <input type="date" class="form-control rounded-0" id="bookingDate" value={defaultDate}>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                  <label for="bookingTime" class="form-label text-light">Time</label>
+                  <input type="time" class="form-control rounded-0" id="bookingTime" value="19:00"> {/* Default 7:00 PM */}
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="partySize" class="form-label text-light">Party</label>
+                  <select class="form-select rounded-0" id="partySize">
+                    <option value="1">1 Person</option>
+                    <option value="2" selected>2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                    <option value="6">6 People</option>
+                    <option value="7+">7+ People</option>
+                  </select>
+                </div>
+              </div>
+
+              <h2 class="text-gold mb-4 mt-5 text-center">Contact Details</h2>
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="contactName" class="form-label text-light">Name</label>
+                  <input type="text" class="form-control rounded-0" id="contactName" placeholder="Your Name">
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                  <label for="contactEmail" class="form-label text-light">Email</label>
+                  <input type="email" class="form-control rounded-0" id="contactEmail" placeholder="Your Email">
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="contactPhone" class="form-label text-light">Phone</label>
+                <input type="tel" class="form-control rounded-0" id="contactPhone" placeholder="Your Phone Number">
+              </div>
+              <div class="mb-4">
+                <label for="contactMessage" class="form-label text-light">Add a Message</label>
+                <textarea class="form-control rounded-0" id="contactMessage" rows="4" placeholder="Special requests, allergies, etc."></textarea>
+              </div>
+
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-0 mt-3">REQUEST BOOKING</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* La sección de contacto inferior (About Us, Follow Us, Contact) ya está en el footer global */}
+    {/* Podemos añadir una sección adicional aquí si se necesita más información de contacto específica */}
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .contact-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+
+    .booking-form {
+      background-color: var(--bg-dark); /* Fondo del formulario */
+      border-color: var(--border-darker) !important; /* Borde del formulario */
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+      label {
+        color: var(--txt-light);
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .form-control,
+      .form-select {
+        background-color: var(--bg-dark-secondary);
+        border: 1px solid var(--border-dark);
+        color: var(--txt-light);
+        padding: 0.75rem 1rem;
+        border-radius: 0px !important; /* Bordes rectos */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:focus {
+          background-color: var(--bg-dark-secondary);
+          border-color: var(--gold);
+          box-shadow: 0 0 0 0.25rem rgba(var(--gold), 0.25);
+          color: var(--txt-light);
+          outline: none;
+        }
+
+        &::placeholder {
+          color: var(--txt-muted);
+        }
+      }
+
+      .form-select {
+        /* Estilos específicos para el select, para que no tenga flecha azul por defecto en algunos navegadores */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Flecha blanca */
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+      }
+
+      .btn-lg {
+        padding: 1rem 2.5rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+    }
+  }
+
+  body.light-theme .contact-page-content {
+    background-color: var(--bg-darker);
+
+    .booking-form {
+      background-color: var(--bg-dark); /* En tema claro, es el fondo claro principal */
+      border-color: var(--border-dark) !important; /* En tema claro, es el borde oscuro */
+
+      label {
+        color: var(--txt-light); /* En tema claro, es el texto oscuro principal */
+      }
+
+      .form-control,
+      .form-select {
+        background-color: var(--bg-dark-secondary); /* En tema claro, es el fondo claro secundario */
+        border-color: var(--border-dark); /* En tema claro, es el borde oscuro */
+        color: var(--txt-light); /* En tema claro, es el texto oscuro principal */
+
+        &:focus {
+          background-color: var(--bg-dark-secondary);
+          border-color: var(--gold);
+          color: var(--txt-light);
+        }
+
+        &::placeholder {
+          color: var(--txt-muted); /* En tema claro, es el gris más oscuro */
+        }
+      }
+      .form-select {
+         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23111111' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Flecha negra para tema claro */
+      }
+    }
+  }
+</style>

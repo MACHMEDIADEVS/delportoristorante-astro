@@ -1,0 +1,23 @@
+/* src/styles/_variables.scss */
+
+/* Variables por defecto (Tema Oscuro) */
+:root {
+  --gold: #c0a062;
+  --gold-hover: #ad8f57;
+  --txt-light: #e0e0e0;
+  --txt-muted: #adb5bd;
+  --txt-dark: #111111;
+
+  --bg-light-hover: #f8f9fa;
+  --bg-dark: #111111;
+  --bg-dark-secondary: #1e1e1e;
+  --bg-darker: #0a0a0a;
+
+  --border-dark: #343a40;
+  --border-light: rgba(255, 255, 255, 0.3);
+  --border-light-hover: rgba(255, 255, 255, 0.5);
+
+  --offcanvas-txt: #e0e0e0;
+  --offcanvas-txt-secondary: #adb5bd;
+  --offcanvas-border: #343a40;
+}

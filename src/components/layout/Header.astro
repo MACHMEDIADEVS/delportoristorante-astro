@@ -1,0 +1,79 @@
+---
+/* src/components/layout/Header.astro */
+const logoUrl = "https://muestra.machmedianj.com/wp-content/uploads/2025/06/del-porto-ristorante.webp";
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Catering', href: '/catering' },
+  { name: 'Our Menu', href: '/menu' },
+  { name: 'Events', href: '/events' },
+  { name: 'About Us', href: '/about-us' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'For Business', href: '/for-business' },
+  { name: 'Join Our Team', href: '/join-our-team' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'F.A.Q.', href: '/faq' },
+  { name: 'Privacy Policy', href: '/privacy-policy' },
+  { name: 'Cookie Policy', href: '/cookie-policy' },
+];
+---
+
+<header id="masthead" class="site-header sticky-top">
+  <div class="container-fluid px-md-4">
+    <div class="row align-items-center gx-2 gx-md-3">
+
+      <div class="col-auto col-md-4">
+        <div class="site-header-left-actions d-flex align-items-center gap-2">
+          <button class="navbar-toggler site-header-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMainMenu" aria-controls="offcanvasMainMenu" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span class="site-header-toggler-text ms-2 d-none d-md-inline">Menu</span>
+          </button>
+
+          <a href="tel:+19084098424" class="btn btn-sm btn-outline-primary d-md-none site-header-action-btn site-header-action-btn-phone-mobile" aria-label="Call us">
+            <i class="bi bi-telephone-fill"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col text-center site-branding">
+        <a class="navbar-brand d-inline-block" href="/">
+          <img src={logoUrl} alt="Del Porto Ristorante Logo" width="150" height="75" class="custom-logo" />
+        </a>
+      </div>
+
+      <div class="col-auto col-md-4 text-end site-header-actions">
+        <a href="tel:+19084098424" class="btn btn-sm btn-outline-light d-none d-md-inline-block me-2 site-header-action-btn" aria-label="Call us at +1 908 409 8423">
+          +1 908 409 8423
+        </a>
+
+        <a href="/contact" class="btn btn-sm btn-primary site-header-action-btn site-header-action-btn-primary">
+          Book a Table
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="offcanvas offcanvas-start site-offcanvas-menu" data-bs-scroll="true" tabindex="-1" id="offcanvasMainMenu" aria-labelledby="offcanvasMainMenuLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasMainMenuLabel" class="offcanvas-title mb-0">Del Porto Ristorante</h5> {/* Título del Offcanvas */}
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="nav flex-column site-offcanvas-nav">
+      {navLinks.map((link) => (
+        <li class="menu-item">
+          <a href={link.href}>{link.name}</a>
+        </li>
+      ))}
+    </ul>
+    <div class="offcanvas-footer mt-auto pt-3 border-top border-offcanvas-border">
+        <p class="text-muted small">Follow us on social media:</p>
+        <div class="social-icons">
+            <a href="#" class="text-offcanvas-txt-secondary me-2"><i class="bi bi-facebook fs-4"></i></a>
+            <a href="#" class="text-offcanvas-txt-secondary me-2"><i class="bi bi-instagram fs-4"></i></a>
+            <a href="#" class="text-offcanvas-txt-secondary me-2"><i class="bi bi-twitter fs-4"></i></a>
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+---
+// src/components/layout/Footer.astro
+const logoUrl = "https://muestra.machmedianj.com/wp-content/uploads/2025/06/del-porto-ristorante.webp";
+---
+
+<footer class="main-footer">
+  <div class="container py-5">
+    <div class="row text-center text-md-start">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h5 class="text-uppercase">About Us</h5>
+        <p class="mb-1">91 Elizabeth Ave, Elizabeth, NJ 07206</p>
+        <p>Tradition. Family. Passion. Italian Hospitality.</p>
+      </div>
+
+      <div class="col-md-4 mb-4 mb-md-0 d-flex flex-column align-items-center">
+        <h5 class="text-uppercase">Follow Us</h5>
+        <div class="social-icons mb-3">
+          <a href="#" class="me-3" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="me-3" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="me-3" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="TripAdvisor"><i class="bi bi-tripadvisor"></i></a>
+        </div>
+        <p>© {new Date().getFullYear()} Del Porto Ristorante. All Rights Reserved.</p>
+      </div>
+
+      <div class="col-md-4 text-md-end">
+        <h5 class="text-uppercase">Contact</h5>
+        <p class="mb-1">delportorestaurant@gmail.com</p>
+        <p>(908) 409-8424</p>
+      </div>
+    </div>
+
+    <div class="row mt-4 footer-bottom-nav">
+      <div class="col-12 text-center">
+        <img src={logoUrl} alt="Del Porto Ristorante Logo" width="80" height="40" class="footer-logo mb-3" />
+        <nav>
+          <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about-us">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Reservation</a></li>
+            <li class="nav-item"><a class="nav-link" href="/privacy-policy">Privacy</a></li>
+            <li class="nav-item"><a class="nav-link" href="/cookie-policy">Policy</a></li>
+            <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</footer>

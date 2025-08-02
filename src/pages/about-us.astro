@@ -1,0 +1,339 @@
+---
+/* src/pages/about-us.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/sections/HeroPage.astro';
+import Newsletter from '../components/sections/Newsletter.astro';
+
+// Contenido de info.md para About Us
+const pageTitle = "Tradition. Family. Passion. Italian Hospitality.";
+const pageDescription = "Our Story"; // Título principal de la sección de historia
+const seoDescription = "Learn about Del Porto Italian Ristorante's story, mission, and what sets us apart. Discover our authentic Italian cuisine and warm hospitality.";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica para About Us
+const heroAltText = "Chefs preparing food in a bustling kitchen";
+
+const ourStoryContent = `
+  Nestled in the heart of Elizabeth, New Jersey, Del Porto Italian Ristorante is a celebration of authentic Italian cuisine, warm hospitality, and elevated service. Inspired by timeless recipes and seasonal ingredients, our menu blends tradition with creativity—bringing the flavors of Italy to every table.
+  From handcrafted pasta to fresh seafood, expertly paired wines, and signature cocktails, every dish is prepared with care, passion, and a touch of famiglia.
+`;
+
+const ourMissionContent = `
+  We are here to create memorable dining experiences rooted in quality, authenticity, and connection. Whether you’re joining us for a casual dinner, a private event, or a family celebration—our goal is to make every guest feel at home.
+`;
+
+const whatSetsUsApart = [
+  "Authentic Italian Menu – Featuring homemade pasta, premium meats, seafood, and seasonal produce.",
+  "Signature Drinks & Wine List – Curated selection of Italian wines and handcrafted cocktails.",
+  "Private Dining & Catering – Tailored experiences for any occasion, from intimate gatherings to large celebrations.",
+  "Exceptional Service – Our team delivers friendly, attentive hospitality every step of the way.",
+];
+
+const contactInfo = {
+  address: "91 Elizabeth Ave, Elizabeth, NJ 07206",
+  phone: "(908) 409-8424",
+  email: "delportorestaurant@gmail.com",
+};
+
+const finalNote = "At Del Porto, you’re not just a guest—you’re family. We invite you to come dine with us, share good food and great company, and be part of our story.";
+
+// Datos de la línea de tiempo (basados en la imagen de referencia y extendidos)
+const timelineEvents = [
+  { year: "2001", title: "Founding of Del Porto", description: "Del Porto Ristorante opened its doors with a vision to bring authentic Italian flavors to the community." },
+  { year: "2002", title: "First Menu Expansion", description: "Expanded our menu to include new regional Italian specialties and homemade pasta dishes." },
+  { year: "2007", title: "Renovation & Expansion", description: "Underwent a major renovation to expand seating capacity and enhance the dining ambiance." },
+  { year: "2010", title: "Award for Culinary Excellence", description: "Received local recognition for outstanding culinary quality and customer service." },
+  { year: "2012", title: "Launch of Catering Services", description: "Introduced our full-service catering to bring Del Porto's experience to private events." },
+  { year: "2020", title: "Adapting to New Challenges", description: "Navigated global changes by enhancing takeout and delivery services, maintaining our commitment to quality." },
+  { year: "2023", title: "New Signature Dishes", description: "Introduced a series of innovative signature dishes, blending tradition with modern culinary techniques." },
+  { year: "2025", title: "Celebrating Over Two Decades", description: "Proudly celebrating over two decades of serving authentic Italian cuisine and hospitality." },
+];
+
+// Datos de chefs de ejemplo (para el placeholder visual "Meet Our Professionals")
+const chefs = [
+  { name: "John Smith", role: "Head Chef", image: "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp" },
+  { name: "Jane Doe", role: "Pastry Chef", image: "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp" },
+  { name: "Robert Chef", role: "Sous Chef", image: "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp" },
+];
+---
+
+<BaseLayout title="About Us" description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="about-us-page-content">
+    <section class="py-5 bg-dark text-center">
+      <div class="container">
+        <h2 class="text-gold mb-4">Our Story</h2>
+        <p class="lead text-light mb-4">{ourStoryContent}</p>
+
+        <h2 class="text-gold mt-5 mb-4">Our Mission</h2>
+        <p class="lead text-light">{ourMissionContent}</p>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">What Sets Us Apart</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4 text-center text-light">
+          {whatSetsUsApart.map((item) => (
+            <div class="col">
+              <div class="p-4 bg-dark-secondary h-100 border border-darker">
+                <i class="bi bi-check-circle-fill text-gold fs-4 mb-3"></i>
+                <p class="mb-0">{item}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark timeline-section">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">History of Kitchen Traditions</h2>
+        <div class="timeline-container">
+          {timelineEvents.map((event, index) => (
+            <div class="timeline-item">
+              <div class="timeline-year text-gold fw-bold">{event.year}</div>
+              <div class="timeline-content bg-dark-secondary border border-darker text-light">
+                <h3 class="h5 fw-bold text-gold">{event.title}</h3>
+                <p class="small text-muted">{event.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker text-center">
+      <div class="container">
+        <h2 class="text-gold mb-5">Meet Our Professionals</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {chefs.map((chef) => (
+            <div class="col">
+              <div class="bg-dark-secondary p-4 h-100 border border-darker">
+                <img src={chef.image} alt={chef.name} class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                <h3 class="h5 text-light fw-bold">{chef.name}</h3>
+                <p class="text-gold small">{chef.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark text-center">
+      <div class="container">
+        <h2 class="text-gold mb-5">Clients Testimonials</h2>
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <blockquote class="blockquote text-light mb-4">
+              <p class="mb-0">"Del Porto Ristorante offers an unparalleled dining experience. The food is exquisite, the ambiance is charming, and the service is truly exceptional. Every visit feels like a celebration!"</p>
+              <footer class="blockquote-footer text-muted mt-3">Satisfied Customer</footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker text-center">
+      <div class="container">
+        <h2 class="text-gold mb-4">Visit Us</h2>
+        <p class="lead text-light mb-3">
+          {contactInfo.address} <br>
+          {contactInfo.phone} <br>
+          {contactInfo.email}
+        </p>
+        <a href="/contact" class="btn btn-primary btn-lg mt-3">Make a Reservation</a>
+      </div>
+    </section>
+
+    <Newsletter />
+
+    <section class="py-5 bg-dark text-center">
+        <div class="container">
+            <p class="lead text-light mb-0">{finalNote}</p>
+        </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .about-us-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+    .lead {
+      font-size: 1.25rem;
+    }
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    /* Estilos para "What Sets Us Apart" cards */
+    .col .p-4.bg-dark-secondary {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      i {
+        transition: color 0.3s ease;
+      }
+      &:hover i {
+        color: var(--gold-hover);
+      }
+    }
+
+    /* Estilos de la Línea de Tiempo */
+    .timeline-section {
+      padding: 5rem 0;
+      background-color: var(--bg-dark);
+
+      .timeline-container {
+        display: flex;
+        overflow-x: auto; /* Habilita el scroll lateral */
+        scroll-snap-type: x mandatory; /* Para un scroll más controlado */
+        -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+        padding: 2rem 0; /* Espacio para el contenido */
+        border-bottom: 2px solid var(--border-dark); /* Línea inferior */
+        margin-bottom: 2rem;
+
+        &::-webkit-scrollbar {
+          height: 8px;
+          background-color: var(--bg-dark-secondary);
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--gold);
+          border-radius: 4px;
+        }
+
+        .timeline-item {
+          flex: 0 0 300px; /* Ancho fijo para cada item */
+          scroll-snap-align: start;
+          padding: 1rem;
+          text-align: center;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start; /* Alinea al inicio verticalmente */
+          margin-right: 2rem; /* Espacio entre items */
+
+          &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -2rem; /* Posición de la línea de conexión */
+            top: 50%; /* Centrado verticalmente */
+            transform: translateY(-50%);
+            width: 2rem; /* Longitud de la línea */
+            height: 2px;
+            background-color: var(--gold);
+          }
+
+          .timeline-year {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            position: relative;
+            z-index: 1; /* Para que esté sobre la línea */
+            padding: 0.25rem 0.5rem;
+            background-color: var(--bg-dark); /* Fondo para que se vea el año */
+            border: 2px solid var(--gold);
+            border-radius: 0;
+          }
+
+          .timeline-content {
+            flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background-color: var(--bg-dark-secondary);
+            border: 1px solid var(--border-dark);
+            border-radius: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            h3 {
+              color: var(--txt-light);
+              margin-bottom: 0.5rem;
+            }
+            p {
+              color: var(--txt-muted);
+              font-size: 0.9rem;
+            }
+          }
+          &:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+          }
+        }
+      }
+
+      /* Ocultar la barra de scroll horizontal en navegadores que la soporten, pero mantener la funcionalidad */
+      .timeline-container {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      .timeline-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+      }
+    }
+
+    /* Estilos para "Meet Our Professionals" y "Clients Testimonials" */
+    .bg-dark-secondary.border-darker,
+    .bg-dark-secondary.border-dark {
+      border-color: var(--border-dark) !important;
+    }
+    .rounded-circle {
+      border: 3px solid var(--gold); /* Borde dorado en las imágenes de los chefs */
+    }
+
+    body.light-theme & {
+      .bg-dark, .bg-darker {
+        background-color: var(--bg-dark);
+      }
+      .bg-dark-secondary {
+        background-color: var(--bg-dark-secondary);
+        border-color: var(--border-dark) !important;
+      }
+      .lead, p {
+        color: var(--txt-light);
+      }
+
+      .timeline-section {
+        .timeline-container {
+          border-bottom-color: var(--border-dark);
+          &::-webkit-scrollbar-thumb {
+            background-color: var(--gold-hover);
+          }
+          .timeline-item {
+            &:not(:last-child)::after {
+              background-color: var(--gold);
+            }
+            .timeline-year {
+              background-color: var(--bg-dark);
+              border-color: var(--gold);
+            }
+            .timeline-content {
+              background-color: var(--bg-dark-secondary);
+              border-color: var(--border-dark);
+              h3 {
+                color: var(--txt-light);
+              }
+              p {
+                color: var(--txt-muted);
+              }
+            }
+          }
+        }
+      }
+
+      .rounded-circle {
+        border-color: var(--gold);
+      }
+    }
+  }
+</style>

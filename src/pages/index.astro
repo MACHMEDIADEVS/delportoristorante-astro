@@ -1,0 +1,160 @@
+---
+/* src/pages/index.astro */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServicesSection from "../components/sections/ServicesSection.astro";
+import EventsCarousel from "../components/sections/EventsCarousel.astro";
+import MenuCategoriesGrid from "../components/sections/MenuCategoriesGrid.astro";
+import GoogleReviewsCarousel from "../components/sections/GoogleReviewsCarousel.astro";
+import BookYourEvent from "../components/sections/BookYourEvent.astro";
+import Newsletter from "../components/sections/Newsletter.astro";
+
+import homeDescImage from "/public/assets/images/home/del-porto-ristorante.webp";
+
+const videoUrl =
+  "https://mustra.machmedianj.com/wp-content/uploads/2025/06/delportoristorante.webm";
+---
+
+<BaseLayout
+  title="Homepage"
+  description="Del Porto Ristorante - Authentic Italian Cuisine and Unforgettable Experiences."
+>
+  <main>
+    <section class="hero-section">
+      <video autoplay loop muted playsinline>
+        <source src={videoUrl} type="video/webm" />
+        Tu navegador no soporta el tag de video.
+      </video>
+      <div class="hero-gradient-overlay"></div>
+      <div class="container hero-content">
+        <p class="h4 text-light-subtle">HOMEMADE PASTA AND FRESH SEAFOOD</p>
+        <h1 class="display-1">BENVENUTI ALLA FAMIGLIA</h1>
+        <p class="h5 text-gold">DEL PORTO RISTORANTE</p>
+        <div class="d-flex gap-3">
+          <a href="/contact" class="btn btn-primary btn-lg">RESERVE NOW</a>
+          <a
+            href="https://order.toasttab.com/online/delportoristorante"
+            target="_blank"
+            class="btn btn-outline-light btn-lg">ORDER ONLINE</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="m-0 m-md-5">
+      <ServicesSection />
+    </section>
+
+    <EventsCarousel client:load />
+
+    <MenuCategoriesGrid />
+
+    <GoogleReviewsCarousel client:load />
+
+    <section class="py-5 bg-darker">
+      <div class="container py-5">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <h2>Tradition, Passion and Italian Flavor</h2>
+            <p>
+              Del Porto Italian Ristorante is a celebration of authentic Italian
+              cuisine, warm hospitality, and elevated service. Inspired by
+              timeless recipes and seasonal ingredients, our menu blends
+              tradition with creativity—bringing the flavors of Italy to every
+              table.
+            </p>
+            <p>
+              From handcrafted pasta to fresh seafood, expertly paired wines,
+              and signature cocktails, every dish is prepared with care,
+              passion, and a touch of famiglia.
+            </p>
+            <a href="/about-us" class="btn btn-primary mt-3"
+              >Learn Our History</a
+            >
+          </div>
+          <div class="col-md-6">
+            <img
+              src={homeDescImage.src}
+              alt="Interior of Del Porto Ristorante"
+              class="img-fluid border border-gold"
+              style="border-width: 2px !important;"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <BookYourEvent />
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    padding-left: 10vw;
+
+    video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero-gradient-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 90dvw;
+    }
+
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 767.98px) {
+      padding-left: 5vw;
+
+      .hero-content {
+        text-align: center;
+        align-items: center;
+      }
+
+      .d-flex {
+        justify-content: center;
+      }
+    }
+  }
+
+  body.light-theme .opening-hours-section,
+  .opening-hours-section {
+    display: none;
+  }
+</style>

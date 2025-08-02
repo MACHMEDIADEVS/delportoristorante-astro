@@ -1,0 +1,121 @@
+---
+/* src/components/sections/BookYourEvent.astro */
+import { Image } from "astro:assets";
+import cateringImage from "/public/assets/images/home/catering.webp";
+---
+
+<section id="book-your-event-section" class="bg-dark">
+  <div class="event-grid">
+    <div class="event-content">
+      <h2 class="text-light">BOOK YOUR EVENT AT DEL PORTO</h2>
+      <p class="text-muted">
+        Host your special occasions in our elegant Bridge Banquet Room, perfect
+        for weddings, celebrations, and more. With all-inclusive packages and
+        flexible options, we make event planning seamless and stress-free.
+      </p>
+      <div class="booking-features">
+        <div class="feature-item">
+          <h5>Private & Semi-Private</h5>
+          <p>Private & Semi-Private Events starting at 15 guests.</p>
+        </div>
+        <div class="feature-item">
+          <h5>Custom Menus</h5>
+          <p>Customize menus, drinks, and décor to suit your style.</p>
+        </div>
+        <div class="feature-item">
+          <h5>Service Option</h5>
+          <p>Choose from plated, buffet, or family-style serving options.</p>
+        </div>
+        <div class="feature-item">
+          <h5>3 Step Booking</h5>
+          <p>
+            Simple 3-step booking process: share details, review options, and
+            secure your date.
+          </p>
+        </div>
+      </div>
+      <a href="/events" class="btn btn-primary mt-4">BOOK YOUR EVENT NOW</a>
+    </div>
+    <div class="event-image">
+      <Image src={cateringImage} alt="Event at Del Porto" />
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  #book-your-event-section {
+    padding: 5rem 0;
+
+    .event-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      max-width: 1320px;
+      margin: 0 auto;
+
+      .event-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+
+        h2 {
+          font-size: 3rem;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        p {
+          font-size: 1.25rem;
+        }
+
+        .booking-features {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          margin: 2rem 0;
+
+          .feature-item {
+            text-align: center;
+            h5 {
+              font-size: 1rem;
+              color: var(--gold);
+            }
+          }
+        }
+      }
+
+      .event-image {
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 992px) {
+    #book-your-event-section {
+      .event-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+
+        .event-content {
+          text-align: left;
+          .booking-features {
+            grid-template-columns: 1fr 1fr;
+            text-align: left;
+            .feature-item {
+              h5 {
+                color: var(--txt-light);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

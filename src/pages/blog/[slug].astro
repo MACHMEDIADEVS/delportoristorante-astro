@@ -1,0 +1,114 @@
+---
+/* src/pages/blog/[slug].astro */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import Newsletter from '../../components/sections/Newsletter.astro';
+import { fakePosts } from '../../utils/fakeData'; // Importa los posts falsos
+
+// `getStaticPaths` para generar las páginas estáticas del blog
+export async function getStaticPaths() {
+  return fakePosts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+// Accede a las props del post
+const { post } = Astro.props;
+
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = post.title;
+---
+
+<BaseLayout title={post.title} description={post.excerpt}>
+  <HeroPage
+    title={post.title}
+    subtitle={post.category ? `Category: ${post.category}` : ''}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="single-post-page-content bg-darker">
+    <section class="py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="post-meta text-muted small mb-4 text-center">
+              Published on: {post.date}
+            </div>
+            {post.imageUrl && (
+              <img src={post.imageUrl} alt={post.title} class="img-fluid mb-5 rounded-0 border border-dark" style="filter: brightness(0.9); box-shadow: 0 5px 20px rgba(0,0,0,0.3);" />
+            )}
+            <div class="post-content text-light" set:html={post.content}>
+              {/* Contenido del post */}
+            </div>
+            <div class="text-center mt-5">
+                <a href="/blog" class="btn btn-outline-light btn-lg rounded-0">Back to Blog</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .single-post-page-content {
+    .post-meta {
+      font-size: 0.9rem;
+    }
+    .post-content {
+      line-height: 1.8;
+      h1, h2, h3, h4, h5, h6 {
+        color: var(--gold);
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      p {
+        margin-bottom: 1rem;
+      }
+      a {
+        color: var(--gold);
+        text-decoration: underline;
+        &:hover {
+          color: var(--gold-hover);
+        }
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 1.5rem auto;
+      }
+    }
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    body.light-theme & {
+      background-color: var(--bg-dark);
+      .post-meta, .post-content {
+        color: var(--txt-light);
+        p {
+          color: var(--txt-light);
+        }
+        h1, h2, h3, h4, h5, h6 {
+          color: var(--gold);
+        }
+        a {
+          color: var(--gold);
+          &:hover {
+            color: var(--gold-hover);
+          }
+        }
+      }
+      img {
+        border-color: var(--border-dark) !important;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      }
+    }
+  }
+</style>

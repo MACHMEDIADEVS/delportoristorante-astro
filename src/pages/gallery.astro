@@ -1,0 +1,198 @@
+---
+/* src/pages/gallery.astro */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroPage from "../components/sections/HeroPage.astro";
+import Newsletter from "../components/sections/Newsletter.astro";
+
+// Información para el Hero y SEO
+const pageTitle = "Portfolio Gallery";
+const seoDescription =
+  "Explore our stunning photo gallery showcasing Del Porto Ristorante's exquisite Italian dishes, vibrant atmosphere, and memorable events.";
+const heroImageUrl =
+  "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica para la galería
+const heroAltText = "Del Porto Ristorante Interior View with Dining Tables";
+
+// Datos de ejemplo para la galería (usando la misma imagen de muestra)
+const galleryItems = Array.from({ length: 9 }, (_, i) => ({
+  id: i + 1,
+  imageUrl:
+    "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp", // Imagen de muestra
+  altText: `Del Porto Gallery Item ${i + 1}`,
+}));
+---
+
+<BaseLayout title="Gallery" description={seoDescription}>
+  <HeroPage title={pageTitle} imageUrl={heroImageUrl} altText={heroAltText} />
+
+  <main class="gallery-page-content bg-dark">
+    <section class="py-5">
+      <div class="container text-center">
+        <h3 class="text-gold h4 fw-bold mb-3">About Our Food</h3>
+        <h2 class="text-light mb-5">Restaurant Gallery</h2>
+
+        <div class="gallery-filters mb-5">
+          <ul
+            class="list-unstyled d-flex justify-content-center flex-wrap gap-3"
+          >
+            <li>
+              <button class="btn btn-outline-light active rounded-0"
+                >ALL</button>
+            </li>
+            <li>
+              <button class="btn btn-outline-light rounded-0">FOOD</button>
+            </li>
+            <li>
+              <button class="btn btn-outline-light rounded-0">RECIPES</button>
+            </li>
+            <li>
+              <button class="btn btn-outline-light rounded-0"
+                >RESTAURANT</button>
+            </li>
+            <li>
+              <button class="btn btn-outline-light rounded-0">COFFEE</button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row g-4 gallery-grid">
+          {
+            galleryItems.map((item) => (
+              <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <div class="gallery-item overflow-hidden rounded-0">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.altText}
+                    class="img-fluid w-100 h-100 object-fit-cover"
+                  />
+                  <div class="gallery-overlay d-flex align-items-center justify-content-center">
+                    <i class="bi bi-eye-fill fs-1 text-gold" />
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="mt-5">
+          <button class="btn btn-outline-light btn-lg rounded-0"
+            >LOAD MORE</button
+          >
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .gallery-page-content {
+    h2 {
+      font-size: 2.5rem !important;
+    }
+
+    .gallery-filters {
+      .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+
+        &.active,
+        &:hover,
+        &:focus {
+          background-color: var(--gold) !important;
+          border-color: var(--gold) !important;
+          color: var(--txt-dark) !important;
+          box-shadow: none !important;
+        }
+      }
+    }
+
+    .gallery-grid {
+      .gallery-item {
+        position: relative;
+        cursor: pointer;
+        height: 280px; /* Altura fija para los elementos de la cuadrícula */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        img {
+          transition:
+            transform 0.5s ease,
+            filter 0.5s ease;
+          filter: brightness(0.8); /* Oscurecer un poco la imagen */
+        }
+
+        .gallery-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); /* Overlay oscuro por defecto */
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          i {
+            transform: scale(0.8);
+            transition:
+              transform 0.3s ease,
+              color 0.3s ease;
+          }
+        }
+
+        &:hover {
+          img {
+            transform: scale(1.05); /* Zoom en la imagen */
+            filter: brightness(0.7);
+          }
+          .gallery-overlay {
+            opacity: 1;
+            i {
+              transform: scale(1);
+              color: var(--gold-hover);
+            }
+          }
+        }
+      }
+    }
+
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  body.light-theme .gallery-page-content {
+    background-color: var(--bg-dark); /* Fondo claro */
+    h2 {
+      color: var(--txt-light); /* Texto oscuro */
+    }
+    h3 {
+      color: var(--gold); /* Dorado */
+    }
+
+    .gallery-filters .btn {
+      color: var(--txt-light); /* Texto oscuro */
+      border-color: var(--border-dark) !important; /* Borde oscuro */
+      &:hover,
+      &.active {
+        background-color: var(--gold) !important;
+        border-color: var(--gold) !important;
+        color: var(--txt-dark) !important;
+      }
+    }
+
+    .gallery-grid .gallery-item {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      &:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      img {
+        filter: brightness(0.9);
+      }
+      .gallery-overlay {
+        background-color: rgba(0, 0, 0, 0.3); /* Menos oscuro en tema claro */
+      }
+    }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+/* src/components/wordpress/AccordionFAQ.astro */
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: FAQItem[];
+  title?: string;
+}
+
+const { faqs, title } = Astro.props;
+---
+
+<div class="accordion accordion-flush faq-accordion" id="faqAccordion">
+  {title && <h2 class="text-gold text-center mb-4">{title}</h2>}
+  {faqs.map((faq, index) => (
+    <div class="accordion-item rounded-0 border-0">
+      <h2 class="accordion-header" id={`flush-heading${index}`}>
+        <button class="accordion-button collapsed rounded-0" type="button" data-bs-toggle="collapse" data-bs-target={`#flush-collapse${index}`} aria-expanded="false" aria-controls={`flush-collapse${index}`}>
+          {faq.question}
+        </button>
+      </h2>
+      <div id={`flush-collapse${index}`} class="accordion-collapse collapse" aria-labelledby={`flush-heading${index}`} data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <p>{faq.answer}</p>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style lang="scss">
+  .faq-accordion {
+    .accordion-item {
+      background-color: var(--bg-dark-secondary);
+      border: 1px solid var(--border-dark) !important;
+      margin-bottom: 0.5rem; /* Espacio entre items del acordeón */
+      transition: all 0.3s ease;
+
+      .accordion-header {
+        .accordion-button {
+          background-color: var(--bg-dark-secondary);
+          color: var(--txt-light);
+          font-weight: bold;
+          border-radius: 0px !important;
+          box-shadow: none !important; /* Elimina la sombra por defecto de Bootstrap */
+          transition: background-color 0.3s ease, color 0.3s ease;
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.25rem rgba(var(--gold), 0.25);
+          }
+
+          &:not(.collapsed) {
+            background-color: var(--gold);
+            color: var(--txt-dark);
+            border-bottom: 1px solid var(--gold);
+          }
+        }
+      }
+      .accordion-body {
+        background-color: var(--bg-dark);
+        color: var(--txt-muted);
+        border-top: 1px solid var(--border-dark);
+      }
+    }
+  }
+
+  body.light-theme .faq-accordion {
+    .accordion-item {
+      background-color: var(--bg-dark-secondary); /* Más claro en tema claro */
+      border-color: var(--border-dark) !important;
+
+      .accordion-header {
+        .accordion-button {
+          background-color: var(--bg-dark-secondary);
+          color: var(--txt-light);
+          &:not(.collapsed) {
+            background-color: var(--gold);
+            color: var(--txt-dark);
+            border-bottom-color: var(--gold);
+          }
+        }
+      }
+      .accordion-body {
+        background-color: var(--bg-dark); /* Más claro en tema claro */
+        color: var(--txt-muted);
+        border-top-color: var(--border-dark);
+      }
+    }
+  }
+</style>

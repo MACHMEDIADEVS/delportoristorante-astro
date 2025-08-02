@@ -1,0 +1,161 @@
+---
+/* src/pages/catering.astro */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroPage from '../components/sections/HeroPage.astro';
+import Newsletter from '../components/sections/Newsletter.astro';
+
+// Información de la página de Catering desde info.md
+const pageTitle = "Catering at Your Location — Authentic Italian, Unmatched Service";
+const leitMotive = "Buon cibo. Buona compagnia. Bellissimo evento. (Good food. Good company. A beautiful event.)";
+const seoDescription = "Bring Del Porto's Italian excellence to your next event with full-service catering, custom menus, and professional staff. Celebrate with great food and elevated hospitality at your location.";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = "Del Porto Catering — Italian Antipasto Platter for Events";
+
+const descriptionContent = `
+  Del Porto Italian Ristorante offers full-service catering that brings the heart of Italian cuisine directly to your celebration. Whether you're hosting a corporate gathering, private dinner, wedding, or holiday party, we provide freshly prepared Italian dishes, customizable menus, and professional service. Our team of trained servers and bartenders ensures your event is seamless and memorable.
+  Choose from a variety of antipasti, homemade pastas, entrees like Chicken Parmigiana and Braised Short Ribs, and classic desserts such as Tiramisu and Cannoli. We accommodate groups of all sizes, and offer half and full tray options to suit your guest count.
+  Let us handle the food and service—so you can focus on enjoying your guests.
+`;
+
+const menuCategories = ["Antipasti", "Homemade Pasta", "Secondi", "Sides", "Desserts"];
+const traySizeGuide = "Half = 8 people, Full = 16 people";
+const sampleMenuPdfLink = "/assets/pdf/sample-menu.pdf"; // Enlace a un PDF de ejemplo en public/assets/pdf
+const noticeBarText = "Free Delivery | Call 2 Days in Advance | Tax Not Included";
+const callNowNumber = "(908) 409-8424";
+const emailAddress = "delportorestaurant@gmail.com";
+const locationAddress = "91 Elizabeth Ave, Elizabeth, NJ 07206";
+const finalNote = "At Del Porto, every catered event is a reflection of our passion for Italian food and hospitality. From intimate gatherings to large celebrations, let us create an unforgettable dining experience for you and your guests — wherever you are.";
+---
+
+<BaseLayout title="Catering" description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={leitMotive}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="catering-page-content">
+    <section class="py-5 bg-dark">
+      <div class="container">
+        <p class="lead text-light text-center mb-5">{descriptionContent}</p>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Our Catering Menu</h2>
+        <div class="row mb-5">
+            <div class="col-12 col-md-8 mx-auto">
+                <div class="p-4 bg-dark-secondary border border-dark rounded-0 text-center">
+                    <h3 class="h4 text-light mb-3">Menu Grid</h3>
+                    <p class="text-muted">Choose from a variety of categories:</p>
+                    <ul class="list-unstyled text-light row justify-content-center">
+                        {menuCategories.map(category => (
+                            <li class="col-6 col-md-4 mb-2">{category}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-5 justify-content-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="p-4 bg-dark-secondary border border-dark rounded-0 text-center">
+                    <h3 class="h4 text-light mb-3">Tray Size Guide</h3>
+                    <p class="text-muted lead fw-bold mb-0">{traySizeGuide}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 bg-dark-secondary border border-dark rounded-0 text-center">
+                    <h3 class="h4 text-light mb-3">Sample Menu</h3>
+                    <p class="text-muted mb-3">Download our sample menu for more details.</p>
+                    <a href={sampleMenuPdfLink} download class="btn btn-primary">Download Sample Menu PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="notice-bar bg-gold text-dark text-center py-3 mb-5">
+            <p class="fw-bold mb-0">{noticeBarText}</p>
+        </div>
+
+        <div class="contact-info-section text-center">
+            <h2 class="text-gold mb-4">Contact Us for Catering</h2>
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3 mb-4">
+                <a href={`tel:${callNowNumber.replace(/\s+/g, '')}`} class="btn btn-primary btn-lg">
+                    Call Now to Place Your Order: {callNowNumber}
+                </a>
+                <a href={`mailto:${emailAddress}`} class="btn btn-outline-light btn-lg">
+                    Email Us: {emailAddress}
+                </a>
+            </div>
+            <p class="text-muted mb-0">Location: {locationAddress}</p>
+            <a href={sampleMenuPdfLink} download class="text-gold mt-2 d-inline-block">Download Sample Menu (Link to PDF)</a>
+        </div>
+      </div>
+    </section>
+
+    <Newsletter />
+
+    <section class="py-5 bg-darker text-center">
+      <div class="container">
+        <p class="lead text-light mb-0">{finalNote}</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .catering-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important; /* Ajuste para los títulos de sección */
+    }
+
+    .notice-bar {
+      border-radius: 0;
+      color: var(--txt-dark); /* Asegura texto oscuro en la barra dorada */
+      background-color: var(--gold);
+      p {
+        color: var(--txt-dark) !important; /* Asegura que el texto en la barra dorada sea oscuro */
+        font-size: 1.1rem;
+      }
+    }
+
+    .contact-info-section {
+      a.btn {
+        font-size: 1.1rem !important;
+        padding: 0.8rem 2rem;
+      }
+      p.text-muted {
+        font-size: 1rem;
+      }
+      a.text-gold {
+        font-size: 0.9rem;
+      }
+    }
+
+    .bg-dark-secondary {
+        border-color: var(--border-dark) !important; /* Asegura el borde oscuro */
+        h3 {
+            font-size: 1.5rem !important;
+        }
+        p, li {
+            font-size: 1rem;
+        }
+    }
+
+    body.light-theme & {
+      .notice-bar {
+        background-color: var(--gold);
+        color: var(--txt-dark);
+        p {
+          color: var(--txt-dark) !important;
+        }
+      }
+      .bg-dark-secondary {
+        background-color: var(--bg-dark-secondary); /* Es el color claro secundario en tema claro */
+        border-color: var(--border-dark) !important;
+      }
+    }
+  }
+</style>

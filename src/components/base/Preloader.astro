@@ -1,0 +1,29 @@
+---
+/* src/components/base/Preloader.astro */
+// Importar Image de astro:assets ya no es necesario si usas URL externas directamente
+// import { Image } from 'astro:assets';
+// import logo from '/public/assets/images/del-porto-ristorante.webp'; // Esta línea será eliminada o comentada
+
+const preloaderId = "preloader";
+const logoUrl = "https://muestra.machmedianj.com/wp-content/uploads/2025/06/del-porto-ristorante.webp"; // Usamos la URL externa
+---
+
+<div id={preloaderId}>
+  <img src={logoUrl} alt="Del Porto Ristorante Logo" width="150" height="150" />
+</div>
+
+<script define:vars={{ preloaderId }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.getElementById(preloaderId);
+    if (preloader) {
+      preloader.classList.add('hidden');
+      preloader.addEventListener('transitionend', () => {
+        preloader.remove();
+      });
+    }
+  });
+</script>
+
+<style lang="scss" is:global>
+  /* Los estilos de preloader ya están en main.scss */
+</style>

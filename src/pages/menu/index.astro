@@ -1,0 +1,111 @@
+---
+/* src/pages/menu/index.astro */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroPage from '../../components/sections/HeroPage.astro';
+import CardMenu from '../../components/ui/CardMenu.astro'; // Reutilizamos CardMenu
+import Newsletter from '../../components/sections/Newsletter.astro';
+import { fakeMenus } from '../../utils/fakeData'; // Importa los datos falsos
+
+const pageTitle = "Explore Our Menus";
+const pageSubtitle = "Discover the Authentic Flavors of Italy at Del Porto Ristorante";
+const seoDescription = "Browse all menus at Del Porto Ristorante, from our Main Menu and Lunch Specials to Kids, Dessert, Wine, and Catering options. Find your perfect Italian dish.";
+const heroImageUrl = "https://muestra.machmedianj.com/wp-content/themes/del-porto-ristorante/assets/images/delportoristorante.webp"; // Imagen de hero genérica
+const heroAltText = "Delicious Italian Food Spread on a Table at Del Porto Restaurant";
+
+// Filtramos los menús que no sean solo para la homepage si es necesario, o mostramos todos
+// Para esta página, queremos mostrar todas las categorías de menú disponibles.
+// Podemos excluir menús que sean solo "internos" si los hubiera.
+const allAvailableMenus = fakeMenus.filter(menu => menu.slug); // Aseguramos que tengan un slug para el enlace
+
+---
+
+<BaseLayout title={pageTitle} description={seoDescription}>
+  <HeroPage
+    title={pageTitle}
+    subtitle={pageSubtitle}
+    imageUrl={heroImageUrl}
+    altText={heroAltText}
+  />
+
+  <main class="our-menu-page-content">
+    <section class="py-5 bg-dark">
+      <div class="container text-center">
+        <p class="lead text-light mb-4">
+          At Del Porto Ristorante, we invite you to embark on a culinary journey through the rich and diverse flavors of Italy. From classic pasta dishes to exquisite seafood and delectable desserts, our menus are crafted with passion and the finest ingredients.
+        </p>
+        <p class="text-muted">
+          Explore our various menu categories below to find the perfect selection for any occasion.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-5 bg-darker">
+      <div class="container">
+        <h2 class="text-gold text-center mb-5">Our Menu Categories</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+          {allAvailableMenus.map((menu) => (
+            <div class="col">
+              {/* CardMenu ya está diseñado para enlazar a /menu/[slug] */}
+              <CardMenu menu={menu} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-dark">
+      <div class="container text-center">
+        <h2 class="text-gold mb-4">Daily Specials & Seasonal Delights</h2>
+        <p class="lead text-light mb-4">
+          Ask your server about our daily specials, featuring fresh, seasonal ingredients and unique culinary creations from our chef.
+        </p>
+        <p class="text-muted">
+          We frequently update our offerings to bring you the best of Italian cuisine.
+        </p>
+        <a href="/contact" class="btn btn-primary btn-lg mt-3">Make a Reservation</a>
+      </div>
+    </section>
+
+    <Newsletter />
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .our-menu-page-content {
+    h2.text-gold {
+      font-size: 2.5rem !important;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+    }
+
+    .btn-lg {
+      padding: 1rem 2.5rem;
+      font-size: 1.25rem;
+    }
+
+    // Estilos para las tarjetas de menú dentro de la cuadrícula
+    .col .menu-card {
+        height: 300px; /* Altura uniforme para las tarjetas de menú en esta página */
+        @media (max-width: 575.98px) {
+            height: 250px; /* Ajuste para móviles */
+        }
+    }
+
+    body.light-theme & {
+      .bg-dark {
+        background-color: var(--bg-dark);
+      }
+      .bg-darker {
+        background-color: var(--bg-darker);
+      }
+      h2.text-gold {
+        color: var(--gold);
+      }
+      .lead, .text-muted {
+        color: var(--txt-light);
+      }
+    }
+  }
+</style>
